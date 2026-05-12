@@ -1,0 +1,990 @@
+:root {
+  --main: #f73936;
+}
+.acf-postbox > .acf-fields.-top > .acf-field > .acf-label label {
+  font-size: 20px;
+  background-color: #efefef;
+  padding: 10px !important;
+}
+.acf-postbox
+  > .acf-fields.-top
+  > .acf-field
+  .acf-field-group
+  > .acf-label
+  label {
+  font-size: 16px;
+  background-color: #e3e3e3;
+  padding: 8px !important;
+}
+/* .acf-postbox > .acf-fields.-top > .acf-field-repeater > .acf-label label {
+	font-size: 20px;
+	background-color: #efefef;
+	padding: 10px !important;
+}
+.acf-postbox > .acf-fields.-top > .acf-field-image > .acf-label label {
+	font-size: 20px;
+	background-color: #efefef;
+	padding: 10px !important;
+} */
+body.login {
+  background-color: #f0f0f1;
+}
+#login {
+  width: 690px;
+}
+#loginform {
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  border: 0;
+  padding: 75px 60px 30px;
+}
+#loginform input[type="text"]::placeholder,
+#loginform input[type="password"]::placeholder {
+  color: #999999;
+}
+#loginform input[type="text"],
+#loginform input[type="password"] {
+  background: #f5f5f5;
+  border-radius: 25px;
+  height: 50px;
+  border: 0;
+  outline: none;
+  box-shadow: 0 0 0 1px #f5f5f5;
+  transition: 0.3s all ease-in-out;
+  padding: 0 35px;
+  font-size: 14px;
+}
+#loginform label {
+  margin-bottom: 15px;
+}
+#loginform #user_login {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAxOCAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwLjYyNSAxMi4zNzVINi44NzVDMy4wNDY4OCAxMi4zNzUgMCAxNS40NjA5IDAgMTkuMjVDMCAxOS45NTMxIDAuNTQ2ODc1IDIwLjUgMS4yNSAyMC41SDE2LjI1QzE2LjkxNDEgMjAuNSAxNy41IDE5Ljk1MzEgMTcuNSAxOS4yNUMxNy41IDE1LjQ2MDkgMTQuNDE0MSAxMi4zNzUgMTAuNjI1IDEyLjM3NVpNMS44NzUgMTguNjI1QzIuMTg3NSAxNi4xNjQxIDQuMjk2ODggMTQuMjUgNi44NzUgMTQuMjVIMTAuNjI1QzEzLjE2NDEgMTQuMjUgMTUuMjczNCAxNi4xNjQxIDE1LjU4NTkgMTguNjI1SDEuODc1Wk04Ljc1IDEwLjVDMTEuNDg0NCAxMC41IDEzLjc1IDguMjczNDQgMTMuNzUgNS41QzEzLjc1IDIuNzY1NjIgMTEuNDg0NCAwLjUgOC43NSAwLjVDNS45NzY1NiAwLjUgMy43NSAyLjc2NTYyIDMuNzUgNS41QzMuNzUgOC4yNzM0NCA1Ljk3NjU2IDEwLjUgOC43NSAxMC41Wk04Ljc1IDIuMzc1QzEwLjQ2ODggMi4zNzUgMTEuODc1IDMuNzgxMjUgMTEuODc1IDUuNUMxMS44NzUgNy4yNTc4MSAxMC40Njg4IDguNjI1IDguNzUgOC42MjVDNi45OTIxOSA4LjYyNSA1LjYyNSA3LjI1NzgxIDUuNjI1IDUuNUM1LjYyNSAzLjc4MTI1IDYuOTkyMTkgMi4zNzUgOC43NSAyLjM3NVoiIGZpbGw9IiM5OTk5OTkiLz4KPC9zdmc+Cg==);
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+}
+#loginform input[type="text"]:focus,
+#loginform input[type="password"]:focus {
+  box-shadow: 0 0 0 1px var(--main);
+}
+#login .message {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  border-left: 0;
+  border-bottom: 3px solid red;
+}
+.login .button.wp-hide-pw {
+  min-width: 55px;
+  min-height: 50px;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.wp-hide-pw span::before {
+  color: #999999;
+}
+#login #wp-submit {
+  background: var(--main);
+  border-radius: 25px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  width: 100%;
+  font-size: 20px;
+  border: 0;
+  outline: none;
+  transition: 0.3s all ease-in-out;
+}
+#login #wp-submit:hover {
+  background-color: #cd2623;
+}
+.forgetmenot {
+  font-size: 14px;
+  color: #666666;
+}
+.forgetmenot input:focus {
+  box-shadow: 0 0 0 1px var(--main);
+  border-color: var(--main);
+}
+#login input[type="checkbox"]:checked::before {
+  filter: invert(56%) sepia(33%) saturate(5832%) hue-rotate(341deg)
+    brightness(97%) contrast(96%);
+}
+#login a:hover {
+  color: var(--main) !important;
+}
+
+/* Admin CSS cho variation tinymce editor */
+
+/* Meta box styling */
+.variation-tinymce-wrapper {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.variation-tinymce-wrapper textarea {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* TinyMCE editor customization */
+.tox-tinymce {
+  border-radius: 4px !important;
+}
+
+.tox .tox-toolbar {
+  background: #f8f9fa !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.tox .tox-tbtn {
+  border-radius: 3px !important;
+}
+
+.tox .tox-tbtn:hover {
+  background: #e9ecef !important;
+}
+
+/* Variation description tab styling */
+.variation-description-content {
+  padding: 20px 0;
+  line-height: 1.6;
+}
+
+.variation-description-content h1,
+.variation-description-content h2,
+.variation-description-content h3,
+.variation-description-content h4,
+.variation-description-content h5,
+.variation-description-content h6 {
+  margin: 20px 0 10px 0;
+  color: #333;
+}
+
+.variation-description-content p {
+  margin: 0 0 15px 0;
+}
+
+.variation-description-content ul,
+.variation-description-content ol {
+  margin: 0 0 15px 20px;
+}
+
+.variation-description-content li {
+  margin: 0 0 5px 0;
+}
+
+.variation-description-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.variation-description-content table th,
+.variation-description-content table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.variation-description-content table th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.variation-description-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.variation-description-content blockquote {
+  border-left: 4px solid #007cba;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: #f8f9fa;
+  font-style: italic;
+}
+
+/* Shortcode styling */
+.variation-description-shortcode {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .variation-tinymce-wrapper {
+    padding: 10px;
+  }
+
+  .variation-description-content {
+    padding: 15px 0;
+  }
+
+  .variation-description-content table {
+    font-size: 14px;
+  }
+
+  .variation-description-content table th,
+  .variation-description-content table td {
+    padding: 8px;
+  }
+}
+
+/* Custom variation fields styling */
+.custom_variation_fields {
+  margin: 15px 0;
+  padding: 15px;
+  background: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+}
+
+.custom_variation_fields .form-field {
+  margin-bottom: 15px;
+}
+
+.custom_variation_fields label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #23282d;
+}
+
+.custom_variation_fields input[type="text"] {
+  width: 100%;
+  height: 35px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.custom_variation_fields .variation-tinymce-editor {
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* TinyMCE trong variation fields */
+.custom_variation_fields .tox-tinymce {
+  margin-top: 5px;
+}
+
+.custom_variation_fields .tox .tox-toolbar {
+  background: #f8f9fa !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.custom_variation_fields .tox .tox-tbtn {
+  border-radius: 3px !important;
+}
+
+.custom_variation_fields .tox .tox-tbtn:hover {
+  background: #e9ecef !important;
+}
+
+/* Hover effects */
+.custom_variation_fields:hover {
+  border-color: #007cba;
+  box-shadow: 0 0 5px rgba(0, 124, 186, 0.1);
+}
+
+/* Focus states */
+.custom_variation_fields input[type="text"]:focus,
+.custom_variation_fields .variation-tinymce-editor:focus {
+  border-color: #007cba;
+  box-shadow: 0 0 0 1px #007cba;
+  outline: none;
+}
+
+/* Admin CSS cho variation WYSIWYG editor */
+
+/* Meta box styling */
+.variation-tinymce-wrapper {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.variation-tinymce-wrapper textarea {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* WordPress WYSIWYG Editor customization */
+.wp-editor-container {
+  border-radius: 4px !important;
+}
+
+.wp-editor-area {
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+}
+
+.wp-editor-tools {
+  background: #f8f9fa !important;
+  border: 1px solid #ddd !important;
+  border-bottom: none !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+.wp-editor-tabs {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.wp-editor-tabs .wp-switch-editor {
+  border: 1px solid #ddd !important;
+  border-bottom: none !important;
+  background: #f8f9fa !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+.wp-editor-tabs .wp-switch-editor:hover {
+  background: #e9ecef !important;
+}
+
+.wp-editor-tabs .wp-switch-editor.active {
+  background: #fff !important;
+  border-bottom: 1px solid #fff !important;
+}
+
+/* Variation description tab styling */
+.variation-description-content {
+  padding: 20px 0;
+  line-height: 1.6;
+}
+
+.variation-description-content h1,
+.variation-description-content h2,
+.variation-description-content h3,
+.variation-description-content h4,
+.variation-description-content h5,
+.variation-description-content h6 {
+  margin: 20px 0 10px 0;
+  color: #333;
+}
+
+.variation-description-content p {
+  margin: 0 0 15px 0;
+}
+
+.variation-description-content ul,
+.variation-description-content ol {
+  margin: 0 0 15px 20px;
+}
+
+.variation-description-content li {
+  margin: 0 0 5px 0;
+}
+
+.variation-description-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.variation-description-content table th,
+.variation-description-content table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.variation-description-content table th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.variation-description-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.variation-description-content blockquote {
+  border-left: 4px solid #007cba;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: #f8f9fa;
+  font-style: italic;
+}
+
+/* Shortcode styling */
+.variation-description-shortcode {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .variation-tinymce-wrapper {
+    padding: 10px;
+  }
+
+  .variation-description-content {
+    padding: 15px 0;
+  }
+
+  .variation-description-content table {
+    font-size: 14px;
+  }
+
+  .variation-description-content table th,
+  .variation-description-content table td {
+    padding: 8px;
+  }
+}
+
+/* Custom variation fields styling */
+.custom_variation_fields {
+  margin: 15px 0;
+  padding: 15px;
+  background: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+}
+
+.custom_variation_fields .form-field {
+  margin-bottom: 15px;
+}
+
+.custom_variation_fields label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #23282d;
+}
+
+.custom_variation_fields input[type="text"] {
+  width: 100%;
+  height: 35px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.custom_variation_fields .variation-tinymce-editor {
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* WordPress WYSIWYG Editor trong variation fields */
+.custom_variation_fields .wp-editor-container {
+  margin-top: 5px;
+}
+
+.custom_variation_fields .wp-editor-tools {
+  background: #f8f9fa !important;
+  border: 1px solid #ddd !important;
+  border-bottom: none !important;
+}
+
+.custom_variation_fields .wp-editor-tabs .wp-switch-editor {
+  border: 1px solid #ddd !important;
+  border-bottom: none !important;
+  background: #f8f9fa !important;
+}
+
+.custom_variation_fields .wp-editor-tabs .wp-switch-editor:hover {
+  background: #e9ecef !important;
+}
+
+.custom_variation_fields .wp-editor-tabs .wp-switch-editor.active {
+  background: #fff !important;
+  border-bottom: 1px solid #fff !important;
+}
+
+/* Hover effects */
+.custom_variation_fields:hover {
+  border-color: #007cba;
+  box-shadow: 0 0 5px rgba(0, 124, 186, 0.1);
+}
+
+/* Focus states */
+.custom_variation_fields input[type="text"]:focus,
+.custom_variation_fields .variation-tinymce-editor:focus {
+  border-color: #007cba;
+  box-shadow: 0 0 0 1px #007cba;
+  outline: none;
+}
+
+/* Frontend variation fields styling */
+.variation-fields-section {
+  margin: 30px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.variation-fields-section h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.5em;
+  border-bottom: 2px solid #007cba;
+  padding-bottom: 10px;
+}
+
+.variation-custom-name,
+.variation-thanh-phan,
+.variation-huong-dan {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.variation-custom-name h4,
+.variation-thanh-phan h4,
+.variation-huong-dan h4 {
+  margin: 0 0 10px 0;
+  color: #007cba;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.variation-custom-name p {
+  margin: 0;
+  font-size: 1em;
+  color: #495057;
+}
+
+.variation-thanh-phan .content,
+.variation-huong-dan .content {
+  line-height: 1.6;
+  color: #495057;
+}
+
+.variation-thanh-phan .content h1,
+.variation-thanh-phan .content h2,
+.variation-thanh-phan .content h3,
+.variation-thanh-phan .content h4,
+.variation-thanh-phan .content h5,
+.variation-thanh-phan .content h6,
+.variation-huong-dan .content h1,
+.variation-huong-dan .content h2,
+.variation-huong-dan .content h3,
+.variation-huong-dan .content h4,
+.variation-huong-dan .content h5,
+.variation-huong-dan .content h6 {
+  margin: 15px 0 8px 0;
+  color: #333;
+}
+
+.variation-thanh-phan .content p,
+.variation-huong-dan .content p {
+  margin: 0 0 10px 0;
+}
+
+.variation-thanh-phan .content ul,
+.variation-thanh-phan .content ol,
+.variation-huong-dan .content ul,
+.variation-huong-dan .content ol {
+  margin: 0 0 10px 20px;
+}
+
+.variation-thanh-phan .content li,
+.variation-huong-dan .content li {
+  margin: 0 0 5px 0;
+}
+
+.variation-thanh-phan .content table,
+.variation-huong-dan .content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.variation-thanh-phan .content table th,
+.variation-thanh-phan .content table td,
+.variation-huong-dan .content table th,
+.variation-huong-dan .content table td {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.variation-thanh-phan .content table th,
+.variation-huong-dan .content table th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.variation-thanh-phan .content img,
+.variation-huong-dan .content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.variation-thanh-phan .content blockquote,
+.variation-huong-dan .content blockquote {
+  border-left: 4px solid #007cba;
+  margin: 15px 0;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  font-style: italic;
+}
+
+/* Shortcode display styling */
+.variation-fields-display {
+  margin: 20px 0;
+}
+
+/* Responsive design cho frontend */
+@media (max-width: 768px) {
+  .variation-fields-section {
+    margin: 20px 0;
+    padding: 15px;
+  }
+
+  .variation-fields-section h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+  }
+
+  .variation-custom-name,
+  .variation-thanh-phan,
+  .variation-huong-dan {
+    margin-bottom: 15px;
+    padding: 12px;
+  }
+
+  .variation-thanh-phan .content table,
+  .variation-huong-dan .content table {
+    font-size: 14px;
+  }
+
+  .variation-thanh-phan .content table th,
+  .variation-thanh-phan .content table td,
+  .variation-huong-dan .content table th,
+  .variation-huong-dan .content table td {
+    padding: 6px;
+  }
+}
+
+/* Simple toolbar styling */
+.simple-toolbar {
+  margin-bottom: 5px;
+  padding: 5px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  gap: 5px;
+}
+
+.simple-toolbar button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.simple-toolbar button:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.simple-toolbar button:active {
+  background: #dee2e6;
+  transform: translateY(1px);
+}
+
+.simple-toolbar .btn-bold {
+  font-weight: bold;
+}
+
+.simple-toolbar .btn-italic {
+  font-style: italic;
+}
+
+.simple-toolbar .btn-list {
+  font-size: 16px;
+}
+
+.simple-toolbar .btn-link {
+  font-size: 14px;
+}
+
+.simple-toolbar .btn-table {
+  font-size: 18px;
+  font-weight: bold;
+  color: #495057;
+}
+
+/* Điều chỉnh textarea để phù hợp với toolbar */
+.custom_variation_fields .variation-tinymce-editor {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+/* Table styling trong frontend */
+.variation-thanh-phan .content table,
+.variation-huong-dan .content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.variation-thanh-phan .content table th,
+.variation-huong-dan .content table th {
+  background: #007cba;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 8px;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+.variation-thanh-phan .content table td,
+.variation-huong-dan .content table td {
+  padding: 10px 8px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+  background: #fff;
+}
+
+.variation-thanh-phan .content table tr:nth-child(even),
+.variation-huong-dan .content table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.variation-thanh-phan .content table tr:hover,
+.variation-huong-dan .content table tr:hover {
+  background: #e9ecef;
+}
+
+.variation-thanh-phan .content table thead th,
+.variation-huong-dan .content table thead th {
+  background: #005a87;
+  font-weight: 700;
+}
+
+.variation-thanh-phan .content table tbody th,
+.variation-huong-dan .content table tbody th {
+  background: #6c757d;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .variation-thanh-phan .content table,
+  .variation-huong-dan .content table {
+    font-size: 14px;
+  }
+
+  .variation-thanh-phan .content table th,
+  .variation-thanh-phan .content table td,
+  .variation-huong-dan .content table th,
+  .variation-huong-dan .content table td {
+    padding: 8px 6px;
+  }
+}
+
+/* Variation selector styling */
+.product-size-swiper {
+  margin: 20px 0;
+}
+
+.option-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.option-item:hover {
+  transform: translateY(-2px);
+}
+
+.option-item.is-active .wrap {
+  border-color: #007cba !important;
+  box-shadow: 0 4px 12px rgba(0, 124, 186, 0.3);
+}
+
+.option-item .wrap {
+  transition: all 0.3s ease;
+}
+
+.option-item .img img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.option-item:hover .img img {
+  transform: scale(1.05);
+}
+
+.option-item .title {
+  transition: color 0.3s ease;
+}
+
+.option-item.is-active .title {
+  color: #007cba !important;
+}
+
+/* Variation link trong shop */
+.variation-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.variation-link .button {
+  background: #007cba;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.variation-link .button:hover {
+  background: #005a87;
+  color: #fff;
+}
+
+/* Shop variation display */
+.woocommerce-loop-product__title {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+/* Responsive design cho variation selector */
+@media (max-width: 768px) {
+  .product-size-swiper {
+    margin: 15px 0;
+  }
+
+  .option-item .wrap {
+    padding: 6px 12px;
+  }
+
+  .option-item .title {
+    font-size: 14px;
+  }
+
+  .variation-link .button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Variation info trong shop */
+.variation-info-shop {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.variation-custom-name-shop,
+.variation-thanh-phan-shop,
+.variation-huong-dan-shop {
+  margin-bottom: 8px;
+}
+
+.variation-custom-name-shop:last-child,
+.variation-thanh-phan-shop:last-child,
+.variation-huong-dan-shop:last-child {
+  margin-bottom: 0;
+}
+
+.variation-info-shop strong {
+  color: #007cba;
+  font-weight: 600;
+}
+
+.variation-info-shop p {
+  margin: 5px 0 0 0;
+}
+
+.variation-info-shop ul,
+.variation-info-shop ol {
+  margin: 5px 0 0 20px;
+}
+
+.variation-info-shop li {
+  margin: 2px 0;
+}
+
+.variation-info-shop table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.variation-info-shop table th,
+.variation-info-shop table td {
+  padding: 4px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.variation-info-shop table th {
+  background: #e9ecef;
+  font-weight: 600;
+}
+
+/* Responsive cho variation info */
+@media (max-width: 768px) {
+  .variation-info-shop {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .variation-info-shop table {
+    font-size: 11px;
+  }
+
+  .variation-info-shop table th,
+  .variation-info-shop table td {
+    padding: 3px;
+  }
+}

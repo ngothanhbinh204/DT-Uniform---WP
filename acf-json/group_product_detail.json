@@ -1,0 +1,307 @@
+{
+    "key": "group_product_detail",
+    "title": "Product Detail Settings",
+    "fields": [
+        {
+            "key": "field_690ac7fb2d7dd",
+            "label": "Sản phẩm bán chạy nhất",
+            "name": "product_sales",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_690ac80f2d7de",
+            "label": "Sản phẩm yêu thích",
+            "name": "product_favorite",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_product_info_tab",
+            "label": "Thông tin sản phẩm",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_product_info_table",
+            "label": "Bảng thông tin sản phẩm",
+            "name": "product_info_table",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Thêm các thông tin chi tiết của sản phẩm (Tình trạng sẽ lấy từ trạng thái sản phẩm của sản phẩm )",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Thêm thông tin",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_product_info_label",
+                    "label": "Nhãn",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "Nhãn hiệu:",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_product_info_table"
+                },
+                {
+                    "key": "field_product_info_value",
+                    "label": "Giá trị",
+                    "name": "value",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "Excel\/Harish\/Swift USA",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_product_info_table"
+                }
+            ]
+        },
+        {
+            "key": "field_product_content_tabs",
+            "label": "Tabs nội dung",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_product_detail_tabs",
+            "label": "Các tab thông tin",
+            "name": "product_detail_tabs",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Thêm các tab: Thông tin sản phẩm, Ưu đãi, Hướng dẫn sử dụng, Bảo quản...",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_tab_title",
+            "button_label": "Thêm tab",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_tab_title",
+                    "label": "Tiêu đề tab",
+                    "name": "tab_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Thông tin sản phẩm",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_product_detail_tabs"
+                },
+                {
+                    "key": "field_tab_content_title",
+                    "label": "Tiêu đề nội dung",
+                    "name": "content_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Thông tin sản phẩm",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_product_detail_tabs"
+                },
+                {
+                    "key": "field_tab_content",
+                    "label": "Nội dung",
+                    "name": "content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_product_detail_tabs"
+                }
+            ]
+        },
+        {
+            "key": "field_product_relations_tab",
+            "label": "Sản phẩm gợi ý",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_product_suggested",
+            "label": "Sản phẩm gợi ý",
+            "name": "product_suggested",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Chọn các sản phẩm gợi ý",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": "",
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1762314415
+}
