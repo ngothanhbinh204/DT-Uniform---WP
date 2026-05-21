@@ -101,9 +101,118 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  // ── Gallery update on variation change ──────────────────────────
+  var _origMainSlides = null;
+  var _origThumbSlides = null;
+
+  function _getGallerySwipers() {
+    var $colLeft = $(".product-detail-1 .col-left");
+    var mainEl = $colLeft.find(".main .swiper")[0];
+    var thumbEl = $colLeft.find(".thumb .swiper")[0];
+    return {
+      main: mainEl && mainEl.swiper ? mainEl.swiper : null,
+      thumb: thumbEl && thumbEl.swiper ? thumbEl.swiper : null,
+    };
+  }
+
+  function _refreshLazy($scope) {
+    $scope.find(".lozad[data-src]").each(function () {
+      $(this).attr("src", $(this).data("src"));
+    });
+    if (window.refreshLazyload) window.refreshLazyload();
+  }
+
+  function _initOriginalGallery() {
+    var sw = _getGallerySwipers();
+    if (sw.main && !_origMainSlides) {
+      _origMainSlides = $(sw.main.wrapperEl).html();
+    }
+    if (sw.thumb && !_origThumbSlides) {
+      _origThumbSlides = $(sw.thumb.wrapperEl).html();
+    }
+  }
+
+  function restoreOriginalGallery() {
+    var sw = _getGallerySwipers();
+    if (sw.main && _origMainSlides) {
+      $(sw.main.wrapperEl).html(_origMainSlides);
+      sw.main.update();
+      sw.main.slideTo(0, 0, false);
+    }
+    if (sw.thumb && _origThumbSlides) {
+      $(sw.thumb.wrapperEl).html(_origThumbSlides);
+      sw.thumb.update();
+      sw.thumb.slideTo(0, 0, false);
+    }
+    _refreshLazy($(".product-detail-1 .col-left"));
+  }
+
+  function updateVariationGallery(variation) {
+    if (!variation || !variation.image || !variation.image.src) return;
+
+    _initOriginalGallery();
+
+    var sw = _getGallerySwipers();
+    if (!sw.main) return;
+
+    var images = [];
+    var mainSrc = variation.image.full_src || variation.image.src;
+    if (mainSrc) images.push(mainSrc);
+
+    // Data từ plugin Variation Images Gallery for WooCommerce
+    if (Array.isArray(variation.variation_gallery_images)) {
+      variation.variation_gallery_images.forEach(function (img) {
+        var src = img.full_src || img.url || img.src;
+        if (src && src !== mainSrc) images.push(src);
+      });
+    }
+
+    if (!images.length) return;
+
+    var mainHTML = images
+      .map(function (src) {
+        return (
+          '<div class="swiper-slide"><div class="img"><a class="img-ratio rounded-4" data-fancybox="product-image" data-src="' +
+          src +
+          '"><img class="lozad" data-src="' +
+          src +
+          '" alt="" /></a></div></div>'
+        );
+      })
+      .join("");
+
+    var thumbHTML = images
+      .map(function (src) {
+        return (
+          '<div class="swiper-slide"><div class="img"><a class="img-ratio"><img class="lozad" data-src="' +
+          src +
+          '" alt="" /></a></div></div>'
+        );
+      })
+      .join("");
+
+    $(sw.main.wrapperEl).html(mainHTML);
+    sw.main.update();
+    sw.main.slideTo(0, 0, false);
+
+    if (sw.thumb) {
+      $(sw.thumb.wrapperEl).html(thumbHTML);
+      sw.thumb.update();
+      sw.thumb.slideTo(0, 0, false);
+    }
+
+    _refreshLazy($(".product-detail-1 .col-left"));
+  }
+  // ─────────────────────────────────────────────────────────────────
+
   $("form.variations_form").on("show_variation", function (event, variation) {
     console.log(variation);
     updateProductVariation(variation);
+    updateVariationGallery(variation);
+  });
+
+  $("form.variations_form").on("hide_variation", function () {
+    restoreOriginalGallery();
   });
 
   function updateProductVariation(variation) {

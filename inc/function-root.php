@@ -6,9 +6,11 @@ add_theme_support('menus');
 function register_my_menu()
 {
 	$locations = array(
-		'header-menu' => __('Menu chính', 'canhcamtheme'),
+		'header-menu'        => __('Menu chính (Mobile)', 'canhcamtheme'),
+		'header-menu-left'   => __('Menu Header - Trái', 'canhcamtheme'),
+		'header-menu-right'  => __('Menu Header - Phải', 'canhcamtheme'),
 		'footer-menu-policy' => __('Menu chính sách & quy định', 'canhcamtheme'),
-		'footer-menu-link' => __('Menu liên kết nhanh	', 'canhcamtheme'),
+		'footer-menu-link'   => __('Menu liên kết nhanh', 'canhcamtheme'),
 	);
 	register_nav_menus($locations);
 }
@@ -16,9 +18,9 @@ add_action('init', 'register_my_menu');
 // Tạo theme options
 if (function_exists('acf_add_options_page')) {
 	acf_add_options_page(array(
-		'page_title' 	=> 'Theme options', // Title hiển thị khi truy cập vào Options page
-		'menu_title'	=> 'Theme options', // Tên menu hiển thị ở khu vực admin
-		'menu_slug' 	=> 'theme-settings', // Url hiển thị trên đường dẫn của options page
+		'page_title' 	=> 'Theme options', 
+		'menu_title'	=> 'Theme options', 
+		'menu_slug' 	=> 'theme-settings',
 		'capability'	=> 'edit_posts',
 		'redirect'	=> false
 	));

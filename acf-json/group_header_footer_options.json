@@ -1,0 +1,345 @@
+{
+    "key": "group_header_footer_options",
+    "title": "Header & Footer Settings",
+    "fields": [
+        {
+            "key": "field_hf_tab_header",
+            "label": "Header",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_header_top_text",
+            "label": "Header Top - Dòng chữ thông báo",
+            "name": "header_top_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Dòng chữ hiển thị trên cùng của header (banner thông báo)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "FIND YOUR PERFECT STYLE! GET INSPIRED HERE.",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hf_tab_footer",
+            "label": "Footer",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_footer_company_name",
+            "label": "Tên công ty / Title Logo",
+            "name": "footer_company_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Hiển thị tại vị trí .title-logo trong footer",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "DT UNIFORMS",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_footer_left_items",
+            "label": "Cột trái - Danh sách nội dung",
+            "name": "footer_left_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Mỗi item là một khối thông tin (ví dụ: HEADQUARTERS, FACTORY,...). Dùng WYSIWYG để nhập địa chỉ, điện thoại,...",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Thêm mục thông tin",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_footer_left_item_label",
+            "sub_fields": [
+                {
+                    "key": "field_footer_left_item_label",
+                    "label": "Tiêu đề",
+                    "name": "item_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Ví dụ: HEADQUARTERS, FACTORY,...",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "HEADQUARTERS",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_footer_left_items"
+                },
+                {
+                    "key": "field_footer_left_item_content",
+                    "label": "Nội dung",
+                    "name": "item_content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Nhập nội dung thông tin liên hệ (địa chỉ, số điện thoại,...). Có thể dùng định dạng link.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_footer_left_items"
+                }
+            ]
+        },
+        {
+            "key": "field_footer_mid_label",
+            "label": "Cột giữa - Tiêu đề",
+            "name": "footer_mid_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Tiêu đề hiển thị phía trên menu WordPress của cột giữa. Menu được cấu hình tại Appearance > Menus (vị trí: Menu liên kết nhanh)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_footer_right_title",
+            "label": "Cột phải - Tiêu đề",
+            "name": "footer_right_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_footer_right_desc",
+            "label": "Cột phải - Mô tả",
+            "name": "footer_right_desc",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Mô tả phụ hiển thị dưới tiêu đề cột phải",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_footer_right_shortcode",
+            "label": "Cột phải - Form Contact Shortcode",
+            "name": "footer_right_shortcode",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Nhập shortcode của form liên hệ, ví dụ: [contact-form-7 id=\"123\" title=\"Footer Form\"]",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "[contact-form-7 id=\"123\"]",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_footer_social",
+            "label": "Mạng xã hội (block-social)",
+            "name": "footer_social",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Danh sách các mạng xã hội / thông tin liên lạc hiển thị phía cuối footer",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Thêm mạng xã hội",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_footer_social_label",
+            "sub_fields": [
+                {
+                    "key": "field_footer_social_icon",
+                    "label": "Icon (Font Awesome class)",
+                    "name": "social_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Nhập class Font Awesome đầy đủ, ví dụ: fa-solid fa-envelope",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "fa-solid fa-envelope",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_footer_social"
+                },
+                {
+                    "key": "field_footer_social_label",
+                    "label": "Nhãn hiển thị",
+                    "name": "social_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Text hiển thị bên cạnh icon (email, số điện thoại, tên mạng xã hội,...)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "contact@example.com",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_footer_social"
+                },
+                {
+                    "key": "field_footer_social_link",
+                    "label": "Đường dẫn",
+                    "name": "social_link",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "URL đích khi click (mailto:, tel:, https://...)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "https://",
+                    "parent_repeater": "field_footer_social"
+                }
+            ]
+        },
+        {
+            "key": "field_footer_copyright",
+            "label": "Copyright Text",
+            "name": "footer_copyright",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Hiển thị tại .block-copyright .left-content. Menu chính sách hiển thị bên phải được cấu hình tại Appearance > Menus (vị trí: Menu chính sách & quy định)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "© 2026 DT Uniforms. All Rights Reserved. Website designed by CanhCam.",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Cài đặt nội dung Header và Footer toàn site. Vị trí: Theme Options > Header & Footer Settings",
+    "show_in_rest": 0,
+    "modified": 1747094400
+}

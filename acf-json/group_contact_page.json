@@ -1,305 +1,61 @@
 {
     "key": "group_contact_page",
-    "title": "Contact Page Settings",
+    "title": "Contact Page - Noi dung trang Lien he",
     "fields": [
         {
-            "key": "field_contact_info_tab",
-            "label": "Thông tin liên hệ",
+            "key": "field_contact_tab_banner",
+            "label": "Banner",
             "name": "",
-            "aria-label": "",
             "type": "tab",
-            "instructions": "",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_contact_banner_image",
+            "label": "Anh banner",
+            "name": "contact_banner_image",
+            "type": "image",
+            "instructions": "Ti le: 1920x450.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_contact_banner_title",
+            "label": "Tieu de banner",
+            "name": "contact_banner_title",
+            "type": "text",
+            "instructions": "De trong dung ten trang mac dinh.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "CONTACT US"
+        },
+        {
+            "key": "field_contact_tab_info",
+            "label": "Thong tin cong ty",
+            "name": "",
+            "type": "tab",
             "placement": "top",
-            "endpoint": 0,
-            "selected": 0
+            "endpoint": 0
         },
         {
             "key": "field_contact_company_name",
-            "label": "Tên công ty",
+            "label": "Ten cong ty",
             "name": "contact_company_name",
-            "aria-label": "",
             "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "CÔNG TY TNHH THƯƠNG MẠI HOÀNG LÊ",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_contact_info_repeater",
-            "label": "Thông tin liên hệ",
-            "name": "contact_info_repeater",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Thêm các thông tin liên hệ (Trụ sở chính, Chi nhánh, v.v.)",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Thêm thông tin",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_contact_info_label",
-                    "label": "Nhãn",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "Trụ sở chính:",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_contact_info_repeater"
-                },
-                {
-                    "key": "field_contact_info_items",
-                    "label": "Danh sách thông tin",
-                    "name": "items",
-                    "aria-label": "",
-                    "type": "repeater",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "layout": "block",
-                    "min": 0,
-                    "max": 0,
-                    "collapsed": "",
-                    "button_label": "Thêm",
-                    "rows_per_page": 20,
-                    "sub_fields": [
-                        {
-                            "key": "field_contact_info_item_text",
-                            "label": "Nội dung",
-                            "name": "text",
-                            "aria-label": "",
-                            "type": "textarea",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "rows": 2,
-                            "placeholder": "",
-                            "new_lines": "",
-                            "parent_repeater": "field_contact_info_items"
-                        },
-                        {
-                            "key": "field_contact_info_item_link",
-                            "label": "Link",
-                            "name": "link",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": false,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_contact_info_items"
-                        }
-                    ],
-                    "parent_repeater": "field_contact_info_repeater"
-                }
-            ]
-        },
-        {
-            "key": "field_contact_social_title",
-            "label": "Tiêu đề mạng xã hội",
-            "name": "contact_social_title",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Theo dõi ngay:",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_contact_social_links",
-            "label": "Liên kết mạng xã hội",
-            "name": "contact_social_links",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Thêm mạng xã hội",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_contact_social_icon",
-                    "label": "Icon (Font Awesome)",
-                    "name": "icon",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 1,
-                    "placeholder": "fa-brands fa-facebook-f",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_contact_social_links"
-                },
-                {
-                    "key": "field_contact_social_url",
-                    "label": "URL",
-                    "name": "url",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_contact_social_links"
-                }
-            ]
-        },
-        {
-            "key": "field_contact_form_tab",
-            "label": "Form liên hệ",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
-        },
-        {
-            "key": "field_contact_form_title",
-            "label": "Tiêu đề form",
-            "name": "contact_form_title",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Liên hệ với chúng tôi",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_contact_form_description",
-            "label": "Mô tả form",
-            "name": "contact_form_description",
-            "aria-label": "",
-            "type": "textarea",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Vui lòng điền thông tin vào form dưới đây để nhận tư vấn nhanh chóng. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất để hỗ trợ giải đáp thắc mắc.",
-            "maxlength": "",
-            "rows": 3,
-            "placeholder": "",
-            "new_lines": ""
-        },
-        {
-            "key": "field_690317c3cbb3e",
-            "label": "Form shortcode",
-            "name": "form_shortcode",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -308,19 +64,14 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "placeholder": ""
         },
         {
-            "key": "field_system_section_tab",
-            "label": "Hệ thống cửa hàng",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
+            "key": "field_contact_info_items",
+            "label": "Cac muc thong tin lien he",
+            "name": "contact_info_items",
+            "type": "repeater",
+            "instructions": "Tru so chinh, chi nhanh, dien thoai...",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -328,17 +79,189 @@
                 "class": "",
                 "id": ""
             },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
+            "collapsed": "field_contact_info_label",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Them muc lien he",
+            "sub_fields": [
+                {
+                    "key": "field_contact_info_label",
+                    "label": "Nhan (vd: Tru so chinh:)",
+                    "name": "label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Tru so chinh:"
+                },
+                {
+                    "key": "field_contact_info_content",
+                    "label": "Noi dung (dia chi, so dien thoai...)",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 0,
+                    "delay": 0
+                }
+            ]
         },
         {
-            "key": "field_system_shops",
-            "label": "Chọn hệ thống cửa hàng",
-            "name": "system_shops",
-            "aria-label": "",
+            "key": "field_contact_follow_heading",
+            "label": "Tieu de theo doi mang xa hoi",
+            "name": "contact_follow_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Theo doi ngay:",
+            "placeholder": ""
+        },
+        {
+            "key": "field_contact_social_items",
+            "label": "Social links",
+            "name": "contact_social_items",
+            "type": "repeater",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_contact_social_icon",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Them mang xa hoi",
+            "sub_fields": [
+                {
+                    "key": "field_contact_social_icon",
+                    "label": "Class icon FontAwesome",
+                    "name": "icon",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "fa-brands fa-facebook-f"
+                },
+                {
+                    "key": "field_contact_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url",
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_contact_tab_form",
+            "label": "Form lien he",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_contact_form_heading",
+            "label": "Tieu de form",
+            "name": "contact_form_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Lien he voi chung toi",
+            "placeholder": ""
+        },
+        {
+            "key": "field_contact_form_desc",
+            "label": "Mo ta duoi tieu de form",
+            "name": "contact_form_desc",
+            "type": "textarea",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_contact_form_shortcode",
+            "label": "Shortcode form (CF7 / WPForms)",
+            "name": "contact_form_shortcode",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "60",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "[contact-form-7 id=...]"
+        },
+        {
+            "key": "field_contact_form_disclaimer",
+            "label": "Chu thich bao mat (duoi form)",
+            "name": "contact_form_disclaimer",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "*We are committed to protecting your information.",
+            "placeholder": ""
+        },
+        {
+            "key": "field_contact_tab_branches",
+            "label": "Chi nhanh + Ban do",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_contact_branches",
+            "label": "Danh sach chi nhanh",
+            "name": "contact_branches",
             "type": "relationship",
-            "instructions": "Chọn các hệ thống cửa hàng để hiển thị trên trang liên hệ",
+            "instructions": "Chon cac chi nhanh (post type Shop) de hien thi.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -349,19 +272,32 @@
             "post_type": [
                 "shop"
             ],
-            "post_status": "",
-            "taxonomy": "",
+            "taxonomy": [],
             "filters": [
-                "search",
-                "taxonomy"
+                "search"
             ],
-            "return_format": "id",
-            "min": "",
-            "max": "",
-            "allow_in_bindings": 1,
-            "elements": "",
-            "bidirectional": 0,
-            "bidirectional_target": []
+            "elements": [
+                "featured_image"
+            ],
+            "min": 0,
+            "max": 0,
+            "return_format": "object"
+        },
+        {
+            "key": "field_contact_map_url",
+            "label": "Google Maps embed URL",
+            "name": "contact_map_url",
+            "type": "text",
+            "instructions": "Chi lay phan URL trong src= cua iframe Google Maps.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https://www.google.com/maps/embed?pb=..."
         }
     ],
     "location": [
@@ -369,21 +305,18 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "templates\/template_contact.php"
+                "value": "templates/template_contact.php"
             }
         ]
     ],
     "menu_order": 0,
-    "position": "acf_after_title",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [
-        "the_content"
-    ],
+    "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "display_title": "",
-    "modified": 1761810396
+    "modified": 1778744354
 }

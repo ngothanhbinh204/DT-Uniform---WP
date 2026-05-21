@@ -58,44 +58,48 @@ add_action('wp_footer', function () {
 		return;
 	}
 ?>
-	<script>
-		const error_message = "<?= _e('Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại di động gồm 10 chữ số, bắt đầu bằng 0 hoặc +84.', 'canhcamtheme') ?>";
-		jQuery(function($) {
-			$('body').on('blur change', '#billing_phone', function() {
-				const wrapper = $(this).closest('.form-row');
-				const phone_number = $(this).val();
-				console.log("🚀 ~ $ ~ phone_number:", phone_number)
-				console.log("🚀 ~ $ ~ phone_number:", phone_number.length)
+<script>
+const error_message =
+	"<?= _e('Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại di động gồm 10 chữ số, bắt đầu bằng 0 hoặc +84.', 'canhcamtheme') ?>";
+jQuery(function($) {
+	$('body').on('blur change', '#billing_phone', function() {
+		const wrapper = $(this).closest('.form-row');
+		const phone_number = $(this).val();
+		console.log("🚀 ~ $ ~ phone_number:", phone_number)
+		console.log("🚀 ~ $ ~ phone_number:", phone_number.length)
 
-				if (phone_number.length === 0) {
-					wrapper.removeClass('woocommerce-invalid invalid woocommerce-validated valid');
-					return;
-				}
+		if (phone_number.length === 0) {
+			wrapper.removeClass('woocommerce-invalid invalid woocommerce-validated valid');
+			return;
+		}
 
-				const phone_regex = /^(0|\+840?)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
-				console.log("🚀 ~ $ ~ phone_regex:", phone_regex.test(phone_number))
-				if (!phone_regex.test(phone_number)) { // check if phone is invalid
-					wrapper.removeClass('woocommerce-validated valid').addClass('woocommerce-invalid invalid'); // error
-					if (wrapper.find('.error').length === 0) {
-						wrapper.append('<span class="error">' + error_message + '</span>');
-					}
-				} else {
-					wrapper.removeClass('woocommerce-invalid invalid').addClass('woocommerce-validated valid'); // success
-					wrapper.find('.error').remove();
-				}
-			});
-			jQuery(document.body).on(
-				"init_checkout payment_method_selected update_checkout updated_checkout checkout_error applied_coupon_in_checkout removed_coupon_in_checkout adding_to_cart added_to_cart removed_from_cart wc_cart_button_updated cart_page_refreshed cart_totals_refreshed wc_fragments_loaded init_add_payment_method wc_cart_emptied updated_wc_div updated_cart_totals country_to_state_changed updated_shipping_method applied_coupon removed_coupon",
-				function(e) {
-					console.log(e.type)
-					if (e.type === 'checkout_error') {
-						$('body').find('#billing_phone').trigger('change');
-						$('body').find('#billing_phone').trigger('blur');
-					}
-				}
-			)
-		});
-	</script>
+		const phone_regex =
+			/^(0|\+840?)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
+		console.log("🚀 ~ $ ~ phone_regex:", phone_regex.test(phone_number))
+		if (!phone_regex.test(phone_number)) { // check if phone is invalid
+			wrapper.removeClass('woocommerce-validated valid').addClass(
+			'woocommerce-invalid invalid'); // error
+			if (wrapper.find('.error').length === 0) {
+				wrapper.append('<span class="error">' + error_message + '</span>');
+			}
+		} else {
+			wrapper.removeClass('woocommerce-invalid invalid').addClass(
+			'woocommerce-validated valid'); // success
+			wrapper.find('.error').remove();
+		}
+	});
+	jQuery(document.body).on(
+		"init_checkout payment_method_selected update_checkout updated_checkout checkout_error applied_coupon_in_checkout removed_coupon_in_checkout adding_to_cart added_to_cart removed_from_cart wc_cart_button_updated cart_page_refreshed cart_totals_refreshed wc_fragments_loaded init_add_payment_method wc_cart_emptied updated_wc_div updated_cart_totals country_to_state_changed updated_shipping_method applied_coupon removed_coupon",
+		function(e) {
+			console.log(e.type)
+			if (e.type === 'checkout_error') {
+				$('body').find('#billing_phone').trigger('change');
+				$('body').find('#billing_phone').trigger('blur');
+			}
+		}
+	)
+});
+</script>
 <?php
 });
 /**
@@ -125,16 +129,16 @@ add_action('custom_button_checkout_now', 'woo_add_button_cart_checkout', 1);
 function woo_add_button_cart_checkout()
 {
 ?>
-	<script>
-		jQuery(document).ready(function($) {
-			$(document).on("click", ".button-checkout-now", function(event) {
-				event.preventDefault();
-				$('#place_order').trigger('click');
-				return false;
-			});
-		})
-	</script>
-	<?php
+<script>
+jQuery(document).ready(function($) {
+	$(document).on("click", ".button-checkout-now", function(event) {
+		event.preventDefault();
+		$('#place_order').trigger('click');
+		return false;
+	});
+})
+</script>
+<?php
 	echo '<a class="btn btn-primary ml-auto green ui-button large primary ink button-checkout-now">' . __('TIẾN HÀNH THANH TOÁN', 'canhcamtheme') . '</a>';
 }
 
@@ -170,9 +174,9 @@ function devvn_bank_details($order_id = '')
 		echo '</div>';
 		echo '<table class="table-woocommerce-bacs-bank-details" style=" width: 100%; margin-bottom:1.2rem;">';
 	?>
-		<tr class="table-woocommerce-bacs-bank-details-header">
-		</tr>
-		<?php
+<tr class="table-woocommerce-bacs-bank-details-header">
+</tr>
+<?php
 		$order = wc_get_order($order_id);
 		$total = $order->get_total();
 
@@ -202,21 +206,21 @@ function devvn_bank_details($order_id = '')
 			if (!empty($bank_code) && !empty($stk)) {
 			}
 		?>
-			<tr>
-				<td class="table-woocommerce-bacs-bank-details-item">
-					<div class="wrap-img">
-						<img style="width: 100%; max-width: 200px;" src="<?php echo esc_url($icon); ?>" alt="QR Code VietQR">
-					</div>
-					<div class="wrap-info">
-						<strong class="title-banking"><?php _e('Thông tin chuyển khoản', 'canhcamtheme') ?></strong><br><br>
-						<strong><?= _e('STK', 'canhcamtheme') ?>:</strong> <?php echo $stk; ?><br>
-						<strong><?= _e('Chủ tài khoản', 'canhcamtheme') ?>:</strong> <?php echo $account_name; ?><br>
-						<strong><?= _e('Chi nhánh', 'canhcamtheme') ?>:</strong> <?php echo $bank_name; ?><br>
+<tr>
+	<td class="table-woocommerce-bacs-bank-details-item">
+		<div class="wrap-img">
+			<img style="width: 100%; max-width: 200px;" src="<?php echo esc_url($icon); ?>" alt="QR Code VietQR">
+		</div>
+		<div class="wrap-info">
+			<strong class="title-banking"><?php _e('Thông tin chuyển khoản', 'canhcamtheme') ?></strong><br><br>
+			<strong><?= _e('STK', 'canhcamtheme') ?>:</strong> <?php echo $stk; ?><br>
+			<strong><?= _e('Chủ tài khoản', 'canhcamtheme') ?>:</strong> <?php echo $account_name; ?><br>
+			<strong><?= _e('Chi nhánh', 'canhcamtheme') ?>:</strong> <?php echo $bank_name; ?><br>
 
-						<strong><?= _e('Nội dung chuyển khoản', 'canhcamtheme') ?>:</strong> W<?php echo $order_id; ?>
-					</div>
-				</td>
-			</tr>
+			<strong><?= _e('Nội dung chuyển khoản', 'canhcamtheme') ?>:</strong> W<?php echo $order_id; ?>
+		</div>
+	</td>
+</tr>
 <?php
 		}
 		echo '</table>';

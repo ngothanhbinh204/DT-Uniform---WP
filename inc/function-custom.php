@@ -2,165 +2,161 @@
 
 function log_dump($data)
 {
-	// Use the PHP ob_start function to capture the output of the var_dump function
 	ob_start();
 	var_dump($data);
 	$dump = ob_get_clean();
 
-	// Use the PHP highlight_string function to highlight the syntax
 	$highlighted = highlight_string("<?php\n" . $dump . "\n?>", true);
 
-	// Remove the PHP tags and wrap the highlighted code in a <pre> tag
-	$formatted = '<pre>' . substr($highlighted, 27, -8) . '</pre>';
+$formatted = '
+<pre>' . substr($highlighted, 27, -8) . '</pre>';
 
-	// Add custom CSS styles for the .php and .hlt classes
-	$custom_css = 'pre {position: static;
-		background: #ffffff80;
-		// max-height: 50vh;
-		width: 100vw;
-	}
-	pre::-webkit-scrollbar{
-	width: 1rem;}';
+$custom_css = 'pre {position: static;
+background: #ffffff80;
+// max-height: 50vh;
+width: 100vw;
+}
+pre::-webkit-scrollbar{
+width: 1rem;}';
 
-	// Wrap the custom CSS in a <style> tag
-	$formatted_css = '<style>' . $custom_css . '</style>';
-	echo ($formatted_css . $formatted);
+$formatted_css = '<style>
+' . $custom_css . '
+</style>';
+echo ($formatted_css . $formatted);
 }
 
 function empty_content($str)
 {
-	return trim(str_replace('&nbsp;', '', strip_tags($str, '<img>'))) == '';
+return trim(str_replace('&nbsp;', '', strip_tags($str, '<img>'))) == '';
 }
 
 add_action('facetwp_scripts', function () {
 ?>
-	<script>
-		(function($) {
-			// On start of the facet refresh, but not on first page load
-			$(document).on('facetwp-refresh', function() {
-				if (FWP.loaded) {
-					$('.facetwp-template').prepend('<div class="loading-text"><span class="loader"></span></div>');
-					$('html, body').animate({
-						scrollTop: $('section.section-product-list.list-product').offset().top - 200
-					}, 500);
-				}
-			});
-
-			// On finishing the facet refresh
-			$(document).on('facetwp-loaded', function() {
-				$('.facetwp-template .loading-text').remove();
-				window.lozad.observe()
-			});
-
-		})(jQuery);
-		(function($) {
-			if (window.matchMedia('(max-width: 1023.98px)').matches) {
-				// Disable auto-refresh for all facets
-				// document.addEventListener('facetwp-loaded', function() {
-				// 	FWP.auto_refresh = false;
-				// });
-
-				// Handle the Apply button click
-				document.querySelector('.list-filter-product .filter').addEventListener('click', function() {
-					$('.list-filter-product').removeClass('active');
-					FWP.refresh();
-					console.log('End Filter');
-					// Scroll to product list section with offset
-					$('html, body').animate({
-						scrollTop: $('section.section-product-list.list-product').offset().top - 200
-					}, 500);
-				});
-			}
-		})(jQuery);
-		(function($) {
-			$(document).on('change', '.wrap-filter-select .facetwp-type-sort select', function() {
-				FWP.refresh();
-			});
-		})(fUtil);
-	</script>
-	<style>
-		.facetwp-template {
-			position: relative;
+<script>
+(function($) {
+	$(document).on('facetwp-refresh', function() {
+		if (FWP.loaded) {
+			$('.facetwp-template').prepend('<div class="loading-text"><span class="loader"></span></div>');
+			$('html, body').animate({
+				scrollTop: $('section.section-product-list.list-product').offset().top - 200
+			}, 500);
 		}
+	});
 
-		.loading-text {
-			display: flex;
-			padding-top: 50px;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: 10;
-			background-color: #fff;
-			border-radius: 20px;
-			backdrop-filter: blur(10px);
-		}
+	$(document).on('facetwp-loaded', function() {
+		$('.facetwp-template .loading-text').remove();
+		window.lozad.observe()
+	});
 
-		@media (max-width: 1023.98px) {
-			.loading-text {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				z-index: 10;
-				background-color: #fff;
-				border-radius: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-		}
+})(jQuery);
+(function($) {
+	if (window.matchMedia('(max-width: 1023.98px)').matches) {
+		// Disable auto-refresh for all facets
+		// document.addEventListener('facetwp-loaded', function() {
+		// 	FWP.auto_refresh = false;
+		// });
 
-		.loader {
-			width: 48px;
-			height: 48px;
-			display: block;
-			margin: 15px auto;
-			position: relative;
-			color: #FFF;
-			box-sizing: border-box;
-			animation: rotation 1s linear infinite;
-		}
+		// Handle the Apply button click
+		document.querySelector('.list-filter-product .filter').addEventListener('click', function() {
+			$('.list-filter-product').removeClass('active');
+			FWP.refresh();
+			console.log('End Filter');
+			// Scroll to product list section with offset
+			$('html, body').animate({
+				scrollTop: $('section.section-product-list.list-product').offset().top - 200
+			}, 500);
+		});
+	}
+})(jQuery);
+(function($) {
+	$(document).on('change', '.wrap-filter-select .facetwp-type-sort select', function() {
+		FWP.refresh();
+	});
+})(fUtil);
+</script>
+<style>
+.facetwp-template {
+	position: relative;
+}
 
-		.loader::after,
-		.loader::before {
-			content: '';
-			box-sizing: border-box;
-			position: absolute;
-			width: 24px;
-			height: 24px;
-			top: 50%;
-			left: 50%;
-			transform: scale(0.5) translate(0, 0);
-			background-color: #222222;
-			border-radius: 50%;
-			animation: animloader 1s infinite ease-in-out;
-		}
+.loading-text {
+	display: flex;
+	padding-top: 50px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: #fff;
+	border-radius: 20px;
+	backdrop-filter: blur(10px);
+}
 
-		.loader::before {
-			background-color: #b72126;
-			transform: scale(0.5) translate(-48px, -48px);
-		}
+@media (max-width: 1023.98px) {
+	.loading-text {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 10;
+		background-color: #fff;
+		border-radius: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
 
-		@keyframes rotation {
-			0% {
-				transform: rotate(0deg);
-			}
+.loader {
+	width: 48px;
+	height: 48px;
+	display: block;
+	margin: 15px auto;
+	position: relative;
+	color: #FFF;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
 
-			100% {
-				transform: rotate(360deg);
-			}
-		}
+.loader::after,
+.loader::before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 50%;
+	left: 50%;
+	transform: scale(0.5) translate(0, 0);
+	background-color: #222222;
+	border-radius: 50%;
+	animation: animloader 1s infinite ease-in-out;
+}
 
-		@keyframes animloader {
-			50% {
-				transform: scale(1) translate(-50%, -50%);
-			}
-		}
-	</style>
+.loader::before {
+	background-color: #b72126;
+	transform: scale(0.5) translate(-48px, -48px);
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes animloader {
+	50% {
+		transform: scale(1) translate(-50%, -50%);
+	}
+}
+</style>
 <?php
 }, 100);
 ?>
@@ -257,28 +253,29 @@ add_action('wp_enqueue_scripts', 'custom_woocommerce_select2_locale', 100);
 function disable_all_form_autocomplete()
 {
 ?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			// More aggressive approach
-			function disableAutocomplete() {
-				// Apply to forms
-				$('form').attr('autocomplete', 'off').attr('autocorrect', 'off').attr('autocapitalize', 'off').attr('spellcheck', 'false');
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	// More aggressive approach
+	function disableAutocomplete() {
+		// Apply to forms
+		$('form').attr('autocomplete', 'off').attr('autocorrect', 'off').attr('autocapitalize', 'off').attr(
+			'spellcheck', 'false');
 
-				// Apply to all input elements
-				// $('input, select, textarea').each(function() {
-				// 	$(this)
-				// 		// .attr('autocomplete', 'new-password') // More effective than 'off'
-				// 		.attr('autocorrect', 'off')
-				// 		.attr('autocapitalize', 'off')
-				// 		.attr('spellcheck', 'false')
-				// });
-			}
+		// Apply to all input elements
+		// $('input, select, textarea').each(function() {
+		// 	$(this)
+		// 		// .attr('autocomplete', 'new-password') // More effective than 'off'
+		// 		.attr('autocorrect', 'off')
+		// 		.attr('autocapitalize', 'off')
+		// 		.attr('spellcheck', 'false')
+		// });
+	}
 
-			// Run on page load
-			disableAutocomplete();
+	// Run on page load
+	disableAutocomplete();
 
-			// Add CSS to hide autocomplete suggestions
-			$('head').append('<style>\
+	// Add CSS to hide autocomplete suggestions
+	$('head').append('<style>\
             input:-webkit-autofill,\
             input:-webkit-autofill:hover,\
             input:-webkit-autofill:focus,\
@@ -288,8 +285,8 @@ function disable_all_form_autocomplete()
                 transition: background-color 5000s ease-in-out 0s;\
             }\
         </style>');
-		});
-	</script>
+});
+</script>
 <?php
 }
 add_action('wp_footer', 'disable_all_form_autocomplete', 99);
@@ -374,325 +371,340 @@ add_shortcode('shortcode_form_3ds', 'shortcode_form_3ds');
 function shortcode_js_slide()
 {
 ?>
-	<script type="text/javascript" id="elementor-pro-frontend-js-before">
-		/* <![CDATA[ */
-		var ElementorProFrontendConfig = {
-			"ajaxurl": "https:\/\/3ds.webcanhcam.vn\/wp-admin\/admin-ajax.php",
-			"nonce": "80be91f12e",
-			"urls": {
-				"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/assets\/"
+<script type="text/javascript" id="elementor-pro-frontend-js-before">
+/* <![CDATA[ */
+var ElementorProFrontendConfig = {
+	"ajaxurl": "https:\/\/3ds.webcanhcam.vn\/wp-admin\/admin-ajax.php",
+	"nonce": "80be91f12e",
+	"urls": {
+		"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/assets\/"
+	},
+	"i18n": {
+		"toc_no_headings_found": "No headings were found on this page."
+	},
+	"shareButtonsNetworks": {
+		"facebook": {
+			"title": "Facebook",
+			"has_counter": true
+		},
+		"twitter": {
+			"title": "Twitter"
+		},
+		"google": {
+			"title": "Google+",
+			"has_counter": true
+		},
+		"linkedin": {
+			"title": "LinkedIn",
+			"has_counter": true
+		},
+		"pinterest": {
+			"title": "Pinterest",
+			"has_counter": true
+		},
+		"reddit": {
+			"title": "Reddit",
+			"has_counter": true
+		},
+		"vk": {
+			"title": "VK",
+			"has_counter": true
+		},
+		"odnoklassniki": {
+			"title": "OK",
+			"has_counter": true
+		},
+		"tumblr": {
+			"title": "Tumblr"
+		},
+		"digg": {
+			"title": "Digg"
+		},
+		"skype": {
+			"title": "Skype"
+		},
+		"stumbleupon": {
+			"title": "StumbleUpon",
+			"has_counter": true
+		},
+		"mix": {
+			"title": "Mix"
+		},
+		"telegram": {
+			"title": "Telegram"
+		},
+		"pocket": {
+			"title": "Pocket",
+			"has_counter": true
+		},
+		"xing": {
+			"title": "XING",
+			"has_counter": true
+		},
+		"whatsapp": {
+			"title": "WhatsApp"
+		},
+		"email": {
+			"title": "Email"
+		},
+		"print": {
+			"title": "Print"
+		}
+	},
+	"menu_cart": {
+		"cart_page_url": "https:\/\/3ds.webcanhcam.vn\/gio-hang\/",
+		"checkout_page_url": "https:\/\/3ds.webcanhcam.vn\/thanh-toan\/"
+	},
+	"facebook_sdk": {
+		"lang": "vi",
+		"app_id": ""
+	},
+	"lottie": {
+		"defaultAnimationUrl": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"
+	}
+};
+/* ]]> */
+</script>
+<script type="text/javascript" id="elementor-frontend-js-before">
+/* <![CDATA[ */
+var elementorFrontendConfig = {
+	"environmentMode": {
+		"edit": false,
+		"wpPreview": false,
+		"isScriptDebug": false
+	},
+	"i18n": {
+		"shareOnFacebook": "Chia s\u1ebb tr\u00ean Facebook",
+		"shareOnTwitter": "Chia s\u1ebb tr\u00ean Twitter",
+		"pinIt": "Ghim n\u00f3",
+		"download": "T\u1ea3i xu\u1ed1ng",
+		"downloadImage": "T\u1ea3i h\u00ecnh \u1ea3nh",
+		"fullscreen": "To\u00e0n m\u00e0n h\u00ecnh",
+		"zoom": "Thu ph\u00f3ng",
+		"share": "Chia s\u1ebb",
+		"playVideo": "Ph\u00e1t video",
+		"previous": "Quay v\u1ec1",
+		"next": "Ti\u1ebfp theo",
+		"close": "\u0110\u00f3ng"
+	},
+	"is_rtl": false,
+	"breakpoints": {
+		"xs": 0,
+		"sm": 480,
+		"md": 768,
+		"lg": 1025,
+		"xl": 1440,
+		"xxl": 1600
+	},
+	"responsive": {
+		"breakpoints": {
+			"mobile": {
+				"label": "Thi\u1ebft b\u1ecb di \u0111\u1ed9ng",
+				"value": 767,
+				"default_value": 767,
+				"direction": "max",
+				"is_enabled": true
 			},
-			"i18n": {
-				"toc_no_headings_found": "No headings were found on this page."
+			"mobile_extra": {
+				"label": "Mobile Extra",
+				"value": 880,
+				"default_value": 880,
+				"direction": "max",
+				"is_enabled": false
 			},
-			"shareButtonsNetworks": {
-				"facebook": {
-					"title": "Facebook",
-					"has_counter": true
-				},
-				"twitter": {
-					"title": "Twitter"
-				},
-				"google": {
-					"title": "Google+",
-					"has_counter": true
-				},
-				"linkedin": {
-					"title": "LinkedIn",
-					"has_counter": true
-				},
-				"pinterest": {
-					"title": "Pinterest",
-					"has_counter": true
-				},
-				"reddit": {
-					"title": "Reddit",
-					"has_counter": true
-				},
-				"vk": {
-					"title": "VK",
-					"has_counter": true
-				},
-				"odnoklassniki": {
-					"title": "OK",
-					"has_counter": true
-				},
-				"tumblr": {
-					"title": "Tumblr"
-				},
-				"digg": {
-					"title": "Digg"
-				},
-				"skype": {
-					"title": "Skype"
-				},
-				"stumbleupon": {
-					"title": "StumbleUpon",
-					"has_counter": true
-				},
-				"mix": {
-					"title": "Mix"
-				},
-				"telegram": {
-					"title": "Telegram"
-				},
-				"pocket": {
-					"title": "Pocket",
-					"has_counter": true
-				},
-				"xing": {
-					"title": "XING",
-					"has_counter": true
-				},
-				"whatsapp": {
-					"title": "WhatsApp"
-				},
-				"email": {
-					"title": "Email"
-				},
-				"print": {
-					"title": "Print"
-				}
+			"tablet": {
+				"label": "M\u00e1y t\u00ednh b\u1ea3ng",
+				"value": 1024,
+				"default_value": 1024,
+				"direction": "max",
+				"is_enabled": true
 			},
-			"menu_cart": {
-				"cart_page_url": "https:\/\/3ds.webcanhcam.vn\/gio-hang\/",
-				"checkout_page_url": "https:\/\/3ds.webcanhcam.vn\/thanh-toan\/"
+			"tablet_extra": {
+				"label": "Tablet Extra",
+				"value": 1200,
+				"default_value": 1200,
+				"direction": "max",
+				"is_enabled": false
 			},
-			"facebook_sdk": {
-				"lang": "vi",
-				"app_id": ""
+			"laptop": {
+				"label": "Laptop",
+				"value": 1366,
+				"default_value": 1366,
+				"direction": "max",
+				"is_enabled": false
 			},
-			"lottie": {
-				"defaultAnimationUrl": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"
+			"widescreen": {
+				"label": "Trang r\u1ed9ng",
+				"value": 2400,
+				"default_value": 2400,
+				"direction": "min",
+				"is_enabled": false
 			}
-		};
-		/* ]]> */
-	</script>
-	<script type="text/javascript" id="elementor-frontend-js-before">
-		/* <![CDATA[ */
-		var elementorFrontendConfig = {
-			"environmentMode": {
-				"edit": false,
-				"wpPreview": false,
-				"isScriptDebug": false
-			},
-			"i18n": {
-				"shareOnFacebook": "Chia s\u1ebb tr\u00ean Facebook",
-				"shareOnTwitter": "Chia s\u1ebb tr\u00ean Twitter",
-				"pinIt": "Ghim n\u00f3",
-				"download": "T\u1ea3i xu\u1ed1ng",
-				"downloadImage": "T\u1ea3i h\u00ecnh \u1ea3nh",
-				"fullscreen": "To\u00e0n m\u00e0n h\u00ecnh",
-				"zoom": "Thu ph\u00f3ng",
-				"share": "Chia s\u1ebb",
-				"playVideo": "Ph\u00e1t video",
-				"previous": "Quay v\u1ec1",
-				"next": "Ti\u1ebfp theo",
-				"close": "\u0110\u00f3ng"
-			},
-			"is_rtl": false,
-			"breakpoints": {
-				"xs": 0,
-				"sm": 480,
-				"md": 768,
-				"lg": 1025,
-				"xl": 1440,
-				"xxl": 1600
-			},
-			"responsive": {
-				"breakpoints": {
-					"mobile": {
-						"label": "Thi\u1ebft b\u1ecb di \u0111\u1ed9ng",
-						"value": 767,
-						"default_value": 767,
-						"direction": "max",
-						"is_enabled": true
-					},
-					"mobile_extra": {
-						"label": "Mobile Extra",
-						"value": 880,
-						"default_value": 880,
-						"direction": "max",
-						"is_enabled": false
-					},
-					"tablet": {
-						"label": "M\u00e1y t\u00ednh b\u1ea3ng",
-						"value": 1024,
-						"default_value": 1024,
-						"direction": "max",
-						"is_enabled": true
-					},
-					"tablet_extra": {
-						"label": "Tablet Extra",
-						"value": 1200,
-						"default_value": 1200,
-						"direction": "max",
-						"is_enabled": false
-					},
-					"laptop": {
-						"label": "Laptop",
-						"value": 1366,
-						"default_value": 1366,
-						"direction": "max",
-						"is_enabled": false
-					},
-					"widescreen": {
-						"label": "Trang r\u1ed9ng",
-						"value": 2400,
-						"default_value": 2400,
-						"direction": "min",
-						"is_enabled": false
-					}
-				}
-			},
-			"version": "3.5.6",
-			"is_static": false,
-			"experimentalFeatures": {
-				"e_dom_optimization": true,
-				"e_optimized_assets_loading": true,
-				"e_optimized_css_loading": true,
-				"a11y_improvements": true,
-				"e_import_export": true,
-				"e_hidden_wordpress_widgets": true,
-				"landing-pages": true,
-				"elements-color-picker": true,
-				"favorite-widgets": true,
-				"admin-top-bar": true,
-				"form-submissions": true,
-				"video-playlist": true
-			},
-			"urls": {
-				"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor\/assets\/"
-			},
-			"settings": {
-				"page": [],
-				"editorPreferences": []
-			},
-			"kit": {
-				"active_breakpoints": ["viewport_mobile", "viewport_tablet"],
-				"global_image_lightbox": "yes",
-				"lightbox_enable_counter": "yes",
-				"lightbox_enable_fullscreen": "yes",
-				"lightbox_enable_zoom": "yes",
-				"lightbox_enable_share": "yes",
-				"lightbox_title_src": "title",
-				"lightbox_description_src": "description"
-			},
-			"post": {
-				"id": 33992,
-				"title": "Gi%E1%BA%A3i%20ph%C3%A1p%20in%203D%20l%C4%A9nh%20v%E1%BB%B1c%20%C3%94%20t%C3%B4%20-%203D%20Smart%20Solutions",
-				"excerpt": "T\u1ea1o ra nh\u1eefng b\u1ed9 ph\u1eadn, chi ti\u1ebft c\u1ee7a xe \u00f4 t\u00f4 m\u1ed9t c\u00e1ch d\u1ec5 d\u00e0ng v\u00e0 hi\u1ec7u qu\u1ea3. T\u1ed1i \u01b0u qu\u00e1 tr\u00ecnh s\u1ea3n xu\u1ea5t xe \u00f4 t\u00f4. Mang l\u1ea1i c\u00e1c s\u1ea3n ph\u1ea9m ch\u1ea5t l\u01b0\u1ee3ng cao kh\u00f4ng k\u00e9m ph\u01b0\u01a1ng ph\u00e1p truy\u1ec1n th\u1ed1ng.",
-				"featuredImage": "https:\/\/3ds.webcanhcam.vn\/wp-content\/uploads\/2021\/02\/151202798_4276698715678034_92518417297108840_n-1.jpg"
-			},
-			"user": {
-				"roles": ["administrator"]
-			}
-		};
-		/* ]]> */
-	</script>
-	<script type="text/javascript" id="elementor-pro-frontend-js-before">
-		/* <![CDATA[ */
-		var ElementorProFrontendConfig = {
-			"ajaxurl": "https:\/\/3ds.webcanhcam.vn\/wp-admin\/admin-ajax.php",
-			"nonce": "80be91f12e",
-			"urls": {
-				"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/assets\/"
-			},
-			"i18n": {
-				"toc_no_headings_found": "No headings were found on this page."
-			},
-			"shareButtonsNetworks": {
-				"facebook": {
-					"title": "Facebook",
-					"has_counter": true
-				},
-				"twitter": {
-					"title": "Twitter"
-				},
-				"google": {
-					"title": "Google+",
-					"has_counter": true
-				},
-				"linkedin": {
-					"title": "LinkedIn",
-					"has_counter": true
-				},
-				"pinterest": {
-					"title": "Pinterest",
-					"has_counter": true
-				},
-				"reddit": {
-					"title": "Reddit",
-					"has_counter": true
-				},
-				"vk": {
-					"title": "VK",
-					"has_counter": true
-				},
-				"odnoklassniki": {
-					"title": "OK",
-					"has_counter": true
-				},
-				"tumblr": {
-					"title": "Tumblr"
-				},
-				"digg": {
-					"title": "Digg"
-				},
-				"skype": {
-					"title": "Skype"
-				},
-				"stumbleupon": {
-					"title": "StumbleUpon",
-					"has_counter": true
-				},
-				"mix": {
-					"title": "Mix"
-				},
-				"telegram": {
-					"title": "Telegram"
-				},
-				"pocket": {
-					"title": "Pocket",
-					"has_counter": true
-				},
-				"xing": {
-					"title": "XING",
-					"has_counter": true
-				},
-				"whatsapp": {
-					"title": "WhatsApp"
-				},
-				"email": {
-					"title": "Email"
-				},
-				"print": {
-					"title": "Print"
-				}
-			},
-			"menu_cart": {
-				"cart_page_url": "https:\/\/3ds.webcanhcam.vn\/gio-hang\/",
-				"checkout_page_url": "https:\/\/3ds.webcanhcam.vn\/thanh-toan\/"
-			},
-			"facebook_sdk": {
-				"lang": "vi",
-				"app_id": ""
-			},
-			"lottie": {
-				"defaultAnimationUrl": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"
-			}
-		};
-		/* ]]> */
-	</script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/1_common-modules.min.js" id="elementor-common-modules-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/2_common.min.js" id="elementor-common-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/3_webpack-pro.runtime.min.js" id="elementor-pro-webpack-runtime-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/4_webpack.runtime.min.js" id="elementor-webpack-runtime-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/5_frontend-modules.min.js" id="elementor-frontend-modules-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/6_frontend.min.js" id="elementor-pro-frontend-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/7_frontend.min.js" id="elementor-frontend-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/8_elements-handlers.min.js" id="pro-elements-handlers-js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/9_carousel.1ebc0652cb61e40967b7.bundle.min.js" id="elementor-frontend-modules-js"></script>
+		}
+	},
+	"version": "3.5.6",
+	"is_static": false,
+	"experimentalFeatures": {
+		"e_dom_optimization": true,
+		"e_optimized_assets_loading": true,
+		"e_optimized_css_loading": true,
+		"a11y_improvements": true,
+		"e_import_export": true,
+		"e_hidden_wordpress_widgets": true,
+		"landing-pages": true,
+		"elements-color-picker": true,
+		"favorite-widgets": true,
+		"admin-top-bar": true,
+		"form-submissions": true,
+		"video-playlist": true
+	},
+	"urls": {
+		"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor\/assets\/"
+	},
+	"settings": {
+		"page": [],
+		"editorPreferences": []
+	},
+	"kit": {
+		"active_breakpoints": ["viewport_mobile", "viewport_tablet"],
+		"global_image_lightbox": "yes",
+		"lightbox_enable_counter": "yes",
+		"lightbox_enable_fullscreen": "yes",
+		"lightbox_enable_zoom": "yes",
+		"lightbox_enable_share": "yes",
+		"lightbox_title_src": "title",
+		"lightbox_description_src": "description"
+	},
+	"post": {
+		"id": 33992,
+		"title": "Gi%E1%BA%A3i%20ph%C3%A1p%20in%203D%20l%C4%A9nh%20v%E1%BB%B1c%20%C3%94%20t%C3%B4%20-%203D%20Smart%20Solutions",
+		"excerpt": "T\u1ea1o ra nh\u1eefng b\u1ed9 ph\u1eadn, chi ti\u1ebft c\u1ee7a xe \u00f4 t\u00f4 m\u1ed9t c\u00e1ch d\u1ec5 d\u00e0ng v\u00e0 hi\u1ec7u qu\u1ea3. T\u1ed1i \u01b0u qu\u00e1 tr\u00ecnh s\u1ea3n xu\u1ea5t xe \u00f4 t\u00f4. Mang l\u1ea1i c\u00e1c s\u1ea3n ph\u1ea9m ch\u1ea5t l\u01b0\u1ee3ng cao kh\u00f4ng k\u00e9m ph\u01b0\u01a1ng ph\u00e1p truy\u1ec1n th\u1ed1ng.",
+		"featuredImage": "https:\/\/3ds.webcanhcam.vn\/wp-content\/uploads\/2021\/02\/151202798_4276698715678034_92518417297108840_n-1.jpg"
+	},
+	"user": {
+		"roles": ["administrator"]
+	}
+};
+/* ]]> */
+</script>
+<script type="text/javascript" id="elementor-pro-frontend-js-before">
+/* <![CDATA[ */
+var ElementorProFrontendConfig = {
+	"ajaxurl": "https:\/\/3ds.webcanhcam.vn\/wp-admin\/admin-ajax.php",
+	"nonce": "80be91f12e",
+	"urls": {
+		"assets": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/assets\/"
+	},
+	"i18n": {
+		"toc_no_headings_found": "No headings were found on this page."
+	},
+	"shareButtonsNetworks": {
+		"facebook": {
+			"title": "Facebook",
+			"has_counter": true
+		},
+		"twitter": {
+			"title": "Twitter"
+		},
+		"google": {
+			"title": "Google+",
+			"has_counter": true
+		},
+		"linkedin": {
+			"title": "LinkedIn",
+			"has_counter": true
+		},
+		"pinterest": {
+			"title": "Pinterest",
+			"has_counter": true
+		},
+		"reddit": {
+			"title": "Reddit",
+			"has_counter": true
+		},
+		"vk": {
+			"title": "VK",
+			"has_counter": true
+		},
+		"odnoklassniki": {
+			"title": "OK",
+			"has_counter": true
+		},
+		"tumblr": {
+			"title": "Tumblr"
+		},
+		"digg": {
+			"title": "Digg"
+		},
+		"skype": {
+			"title": "Skype"
+		},
+		"stumbleupon": {
+			"title": "StumbleUpon",
+			"has_counter": true
+		},
+		"mix": {
+			"title": "Mix"
+		},
+		"telegram": {
+			"title": "Telegram"
+		},
+		"pocket": {
+			"title": "Pocket",
+			"has_counter": true
+		},
+		"xing": {
+			"title": "XING",
+			"has_counter": true
+		},
+		"whatsapp": {
+			"title": "WhatsApp"
+		},
+		"email": {
+			"title": "Email"
+		},
+		"print": {
+			"title": "Print"
+		}
+	},
+	"menu_cart": {
+		"cart_page_url": "https:\/\/3ds.webcanhcam.vn\/gio-hang\/",
+		"checkout_page_url": "https:\/\/3ds.webcanhcam.vn\/thanh-toan\/"
+	},
+	"facebook_sdk": {
+		"lang": "vi",
+		"app_id": ""
+	},
+	"lottie": {
+		"defaultAnimationUrl": "https:\/\/3ds.webcanhcam.vn\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"
+	}
+};
+/* ]]> */
+</script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/1_common-modules.min.js"
+	id="elementor-common-modules-js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/2_common.min.js"
+	id="elementor-common-js"></script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/3_webpack-pro.runtime.min.js"
+	id="elementor-pro-webpack-runtime-js"></script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/4_webpack.runtime.min.js"
+	id="elementor-webpack-runtime-js"></script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/5_frontend-modules.min.js"
+	id="elementor-frontend-modules-js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/6_frontend.min.js"
+	id="elementor-pro-frontend-js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/7_frontend.min.js"
+	id="elementor-frontend-js"></script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/8_elements-handlers.min.js"
+	id="pro-elements-handlers-js"></script>
+<script type="text/javascript"
+	src="<?php bloginfo('template_directory'); ?>/template_3ds/3ds-script/9_carousel.1ebc0652cb61e40967b7.bundle.min.js"
+	id="elementor-frontend-modules-js"></script>
 <?php
 }
 add_shortcode('shortcode_js_slide', 'shortcode_js_slide');
@@ -727,54 +739,55 @@ add_filter('wpcf7_form_tag', 'change_cf7_pipes', 10);
 function shortcode_js_remove_style_3ds()
 {
 ?>
-	<script>
-		jQuery(document).ready(function($) {
-			function updateSpecificInlineFontSizesAndLineHeight() {
-				// Select elements potentially having an inline font-size
-				$('[style*="font-size"]').each(function() {
-					var element = $(this);
-					var currentStyle = element.attr('style');
-					var newStyle = currentStyle; // Start with the current style
-					var fontSizeChanged = false;
+<script>
+jQuery(document).ready(function($) {
+	function updateSpecificInlineFontSizesAndLineHeight() {
+		// Select elements potentially having an inline font-size
+		$('[style*="font-size"]').each(function() {
+			var element = $(this);
+			var currentStyle = element.attr('style');
+			var newStyle = currentStyle; // Start with the current style
+			var fontSizeChanged = false;
 
-					if (currentStyle) {
-						// Check if the target font sizes exist
-						if (/font-size\s*:\s*(?:14|15|16)px/i.test(currentStyle)) {
-							// Replace the target font sizes with 18px
-							newStyle = newStyle.replace(/font-size\s*:\s*(?:14|15|16)px\s*;?/gi, 'font-size: 18px;');
-							fontSizeChanged = true;
-						}
+			if (currentStyle) {
+				// Check if the target font sizes exist
+				if (/font-size\s*:\s*(?:14|15|16)px/i.test(currentStyle)) {
+					// Replace the target font sizes with 18px
+					newStyle = newStyle.replace(/font-size\s*:\s*(?:14|15|16)px\s*;?/gi,
+						'font-size: 18px;');
+					fontSizeChanged = true;
+				}
 
-						// If the font size was changed, also set the line-height
-						if (fontSizeChanged) {
-							// Remove any existing line-height property first
-							newStyle = newStyle.replace(/line-height\s*:[^;]+;?/gi, '');
-							// Clean up potential extra spaces or semicolons left after removal
-							newStyle = newStyle.replace(/\s*;\s*/g, '; ').trim();
-							// Append the new line-height, ensuring a preceding semicolon if needed
-							if (newStyle.length > 0 && !newStyle.endsWith(';')) {
-								newStyle += ';';
-							}
-							newStyle += ' line-height: 1.4;';
-						}
-
-						// Clean up double semicolons and final trim
-						newStyle = newStyle.replace(/;;\s*/g, ';').trim();
-
-						// Update the style attribute only if changes were made
-						if (newStyle !== currentStyle.trim()) {
-							if (newStyle === '' || newStyle === ';') {
-								element.removeAttr('style');
-							} else {
-								element.attr('style', newStyle);
-							}
-						}
+				// If the font size was changed, also set the line-height
+				if (fontSizeChanged) {
+					// Remove any existing line-height property first
+					newStyle = newStyle.replace(/line-height\s*:[^;]+;?/gi, '');
+					// Clean up potential extra spaces or semicolons left after removal
+					newStyle = newStyle.replace(/\s*;\s*/g, '; ').trim();
+					// Append the new line-height, ensuring a preceding semicolon if needed
+					if (newStyle.length > 0 && !newStyle.endsWith(';')) {
+						newStyle += ';';
 					}
-				});
+					newStyle += ' line-height: 1.4;';
+				}
+
+				// Clean up double semicolons and final trim
+				newStyle = newStyle.replace(/;;\s*/g, ';').trim();
+
+				// Update the style attribute only if changes were made
+				if (newStyle !== currentStyle.trim()) {
+					if (newStyle === '' || newStyle === ';') {
+						element.removeAttr('style');
+					} else {
+						element.attr('style', newStyle);
+					}
+				}
 			}
-			updateSpecificInlineFontSizesAndLineHeight();
 		});
-	</script>
+	}
+	updateSpecificInlineFontSizesAndLineHeight();
+});
+</script>
 <?php
 }
 add_shortcode('shortcode_js_remove_style_3ds', 'shortcode_js_remove_style_3ds');
@@ -870,118 +883,116 @@ function get_content_3ds($id)
 		$doc = new DOMDocument();
 		libxml_use_internal_errors(true);
 		$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
-		libxml_clear_errors();
+libxml_clear_errors();
 
-		// Remove all iframe and script tags
-		$tags_to_remove_completely = ['iframe', 'script'];
-		foreach ($tags_to_remove_completely as $tag_name) {
-			$elements = $doc->getElementsByTagName($tag_name);
-			for ($i = $elements->length - 1; $i >= 0; $i--) {
-				$element = $elements->item($i);
-				if ($element->parentNode) { // Check if parentNode exists
-					$element->parentNode->removeChild($element);
-				}
-			}
-		}
+// Remove all iframe and script tags
+$tags_to_remove_completely = ['iframe', 'script'];
+foreach ($tags_to_remove_completely as $tag_name) {
+$elements = $doc->getElementsByTagName($tag_name);
+for ($i = $elements->length - 1; $i >= 0; $i--) {
+$element = $elements->item($i);
+if ($element->parentNode) { // Check if parentNode exists
+$element->parentNode->removeChild($element);
+}
+}
+}
 
-		// Handle img tags: remove all except the first one
-		$img_elements = $doc->getElementsByTagName('img');
-		$img_count = $img_elements->length;
-		// Iterate backwards from the last img down to the second img (index 1)
-		// This leaves the first image (index 0) intact.
-		for ($i = $img_count; $i > 0; $i--) {
-			$img_element = $img_elements->item($i);
-			if ($img_element->parentNode) { // Check if parentNode exists
-				$img_element->parentNode->removeChild($img_element);
-			}
-		}
+// Handle img tags: remove all except the first one
+$img_elements = $doc->getElementsByTagName('img');
+$img_count = $img_elements->length;
+// Iterate backwards from the last img down to the second img (index 1)
+// This leaves the first image (index 0) intact.
+for ($i = $img_count; $i > 0; $i--) {
+$img_element = $img_elements->item($i);
+if ($img_element->parentNode) { // Check if parentNode exists
+$img_element->parentNode->removeChild($img_element);
+}
+}
 
-		$body_node = $doc->getElementsByTagName('body')->item(0);
-		$cleaned_html = '';
-		if ($body_node) {
-			foreach ($body_node->childNodes as $child) {
-				$cleaned_html .= $doc->saveHTML($child);
-			}
-		}
+$body_node = $doc->getElementsByTagName('body')->item(0);
+$cleaned_html = '';
+if ($body_node) {
+foreach ($body_node->childNodes as $child) {
+$cleaned_html .= $doc->saveHTML($child);
+}
+}
 
-		echo apply_filters('the_content', $cleaned_html);
-	} else {
-		echo apply_filters('the_content', '');
-	}
+echo apply_filters('the_content', $cleaned_html);
+} else {
+echo apply_filters('the_content', '');
+}
 }
 /**
- * In Contact Form 7, finds all <select> fields and correctly adds the 'selected', 
- * 'hidden', and 'disabled' attributes to the first option if its value is empty.
- * This creates a non-selectable, hidden placeholder.
- *
- * @param string $html The HTML content of the form.
- * @return string The modified HTML content.
- */
-function cf7_modify_first_select_option($html)
-{
-	$html = preg_replace_callback(
-		'/<select\b[^>]*>(.*?)<\/select>/s',
-		function ($matches) {
-			$select_block = $matches[0];
-			$modified_block = preg_replace(
-				'/(<option\s+value="")(>)/',
-				'$1 selected hidden disabled$2', // Correctly inserts attributes inside the tag
-				$select_block,
-				1
-			);
+* In Contact Form 7, finds all <select> fields and correctly adds the 'selected',
+	* 'hidden', and 'disabled' attributes to the first option if its value is empty.
+	* This creates a non-selectable, hidden placeholder.
+	*
+	* @param string $html The HTML content of the form.
+	* @return string The modified HTML content.
+	*/
+	function cf7_modify_first_select_option($html)
+	{
+	return preg_replace_callback(
+	'#<select\b[^>]*>.*?</select>#is',
+function ($matches) {
 
-			return $modified_block;
+$select = $matches[0];
+
+return preg_replace(
+'#<option(\s+value="")?(.*?)>#i',
+	'<option$1$2 selected hidden disabled>',
+		$select,
+		1
+		);
 		},
 		$html
-	);
+		);
+		}
 
-	return $html;
-}
-
-add_filter('wpcf7_form_elements', 'cf7_modify_first_select_option');
+		add_filter('wpcf7_form_elements', 'cf7_modify_first_select_option');
 
 
-
-function int_create_post_type()
-{
-	// Post type: Dịch vụ
-	register_post_type('shop', array(
+		function int_create_post_type()
+		{
+		// Post type: Dịch vụ
+		register_post_type('shop', array(
 		'labels' => array(
-			'name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'singular_name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'menu_name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'all_items' => __('Tất cả hệ thống 	công ty / cửa hàng', 'canhcamtheme'),
-			'add_new' => __('Thêm hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'add_new_item' => __('Thêm hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'edit_item' => __('Sửa hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'new_item' => __('Hệ thống công ty / cửa hàng mới', 'canhcamtheme'),
-			'view_item' => __('Xem hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'search_items' => __('Tìm hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'not_found' => __('Không tìm thấy hệ thống công ty / cửa hàng', 'canhcamtheme'),
-			'not_found_in_trash' => __('Không tìm thấy hệ thống công ty / cửa hàng trong thùng rác', 'canhcamtheme'),
+		'name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'singular_name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'menu_name' => __('Hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'all_items' => __('Tất cả hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'add_new' => __('Thêm hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'add_new_item' => __('Thêm hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'edit_item' => __('Sửa hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'new_item' => __('Hệ thống công ty / cửa hàng mới', 'canhcamtheme'),
+		'view_item' => __('Xem hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'search_items' => __('Tìm hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'not_found' => __('Không tìm thấy hệ thống công ty / cửa hàng', 'canhcamtheme'),
+		'not_found_in_trash' => __('Không tìm thấy hệ thống công ty / cửa hàng trong thùng rác',
+		'canhcamtheme'),
 		),
 		'public' => true,
 		'has_archive' => true,
 		'show_in_rest' => true, // Quan trọng cho Gutenberg / block editor
-		'rewrite' => array('slug' => 'shop'),
+		'rewrite' => array('slug' => 'he-thong'),
 		'supports' => array('title', 'editor', 'thumbnail'),
 		'taxonomies' => array('shop-category', 'shop-area'),
-	));
-	// Video
-	register_post_type('video', array(
+		));
+		// Video
+		register_post_type('video', array(
 		'labels' => array(
-			'name' => __('Video', 'canhcamtheme'),
-			'singular_name' => __('Video', 'canhcamtheme'),
-			'menu_name' => __('Video', 'canhcamtheme'),
-			'all_items' => __('Tất cả video', 'canhcamtheme'),
-			'add_new' => __('Thêm video', 'canhcamtheme'),
-			'add_new_item' => __('Thêm video', 'canhcamtheme'),
-			'edit_item' => __('Sửa video', 'canhcamtheme'),
-			'new_item' => __('Video mới', 'canhcamtheme'),
-			'view_item' => __('Xem video', 'canhcamtheme'),
-			'search_items' => __('Tìm video', 'canhcamtheme'),
-			'not_found' => __('Không tìm thấy video', 'canhcamtheme'),
-			'not_found_in_trash' => __('Không tìm thấy video trong thùng rác', 'canhcamtheme'),
+		'name' => __('Video', 'canhcamtheme'),
+		'singular_name' => __('Video', 'canhcamtheme'),
+		'menu_name' => __('Video', 'canhcamtheme'),
+		'all_items' => __('Tất cả video', 'canhcamtheme'),
+		'add_new' => __('Thêm video', 'canhcamtheme'),
+		'add_new_item' => __('Thêm video', 'canhcamtheme'),
+		'edit_item' => __('Sửa video', 'canhcamtheme'),
+		'new_item' => __('Video mới', 'canhcamtheme'),
+		'view_item' => __('Xem video', 'canhcamtheme'),
+		'search_items' => __('Tìm video', 'canhcamtheme'),
+		'not_found' => __('Không tìm thấy video', 'canhcamtheme'),
+		'not_found_in_trash' => __('Không tìm thấy video trong thùng rác', 'canhcamtheme'),
 		),
 		'public' => true,
 		'has_archive' => true,
@@ -989,22 +1000,22 @@ function int_create_post_type()
 		'rewrite' => array('slug' => 'video'),
 		'supports' => array('title', 'editor', 'thumbnail'),
 		'taxonomies' => array('video-category', 'video-area'),
-	));
-	// Album
-	register_post_type('album', array(
+		));
+		// Album
+		register_post_type('album', array(
 		'labels' => array(
-			'name' => __('Album', 'canhcamtheme'),
-			'singular_name' => __('Album', 'canhcamtheme'),
-			'menu_name' => __('Album', 'canhcamtheme'),
-			'all_items' => __('Tất cả album', 'canhcamtheme'),
-			'add_new' => __('Thêm album', 'canhcamtheme'),
-			'add_new_item' => __('Thêm album', 'canhcamtheme'),
-			'edit_item' => __('Sửa album', 'canhcamtheme'),
-			'new_item' => __('Album mới', 'canhcamtheme'),
-			'view_item' => __('Xem album', 'canhcamtheme'),
-			'search_items' => __('Tìm album', 'canhcamtheme'),
-			'not_found' => __('Không tìm thấy album', 'canhcamtheme'),
-			'not_found_in_trash' => __('Không tìm thấy album trong thùng rác', 'canhcamtheme'),
+		'name' => __('Album', 'canhcamtheme'),
+		'singular_name' => __('Album', 'canhcamtheme'),
+		'menu_name' => __('Album', 'canhcamtheme'),
+		'all_items' => __('Tất cả album', 'canhcamtheme'),
+		'add_new' => __('Thêm album', 'canhcamtheme'),
+		'add_new_item' => __('Thêm album', 'canhcamtheme'),
+		'edit_item' => __('Sửa album', 'canhcamtheme'),
+		'new_item' => __('Album mới', 'canhcamtheme'),
+		'view_item' => __('Xem album', 'canhcamtheme'),
+		'search_items' => __('Tìm album', 'canhcamtheme'),
+		'not_found' => __('Không tìm thấy album', 'canhcamtheme'),
+		'not_found_in_trash' => __('Không tìm thấy album trong thùng rác', 'canhcamtheme'),
 		),
 		'public' => true,
 		'has_archive' => true,
@@ -1012,195 +1023,196 @@ function int_create_post_type()
 		'rewrite' => array('slug' => 'album'),
 		'supports' => array('title', 'editor', 'thumbnail'),
 		'taxonomies' => array('album-category', 'album-area'),
-	));
-}
-add_action('init', 'int_create_post_type');
+		));
+		}
+		add_action('init', 'int_create_post_type');
 
 
-function int_create_taxonomy()
-{
-	// Taxonomy cho Dịch vụ
-	register_taxonomy('shop-category', array('shop'), array(
+		function int_create_taxonomy()
+		{
+		// Taxonomy cho Dịch vụ
+		register_taxonomy('shop-category', array('shop'), array(
 		'hierarchical' => true,
 		'labels' => array(
-			'name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
-			'singular_name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
-			'menu_name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
-			'all_items' => __('Tất cả danh mục Ngành hàng', 'canhcamtheme'),
-			'add_new_item' => __('Thêm danh mục Ngành hàng', 'canhcamtheme'),
-			'edit_item' => __('Sửa danh mục Ngành hàng', 'canhcamtheme'),
-			'new_item' => __('Danh mục Ngành hàng mới', 'canhcamtheme'),
-			'view_item' => __('Xem danh mục Ngành hàng', 'canhcamtheme'),
+		'name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
+		'singular_name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
+		'menu_name' => __('Danh mục Ngành hàng', 'canhcamtheme'),
+		'all_items' => __('Tất cả danh mục Ngành hàng', 'canhcamtheme'),
+		'add_new_item' => __('Thêm danh mục Ngành hàng', 'canhcamtheme'),
+		'edit_item' => __('Sửa danh mục Ngành hàng', 'canhcamtheme'),
+		'new_item' => __('Danh mục Ngành hàng mới', 'canhcamtheme'),
+		'view_item' => __('Xem danh mục Ngành hàng', 'canhcamtheme'),
 		),
 		'show_admin_column' => true,
 		'show_in_rest' => true,
 		'public' => true,
 		'rewrite' => array('slug' => 'shop-category'),
-	));
-	register_taxonomy('shop-area', array('shop'), array(
+		));
+		register_taxonomy('shop-area', array('shop'), array(
 		'hierarchical' => true,
 		'labels' => array(
-			'name' => __('Khu vực', 'canhcamtheme'),
-			'singular_name' => __('Khu vực', 'canhcamtheme'),
-			'menu_name' => __('Khu vực', 'canhcamtheme'),
-			'all_items' => __('Tất cả khu vực', 'canhcamtheme'),
-			'add_new_item' => __('Thêm khu vực', 'canhcamtheme'),
-			'edit_item' => __('Sửa khu vực', 'canhcamtheme'),
-			'new_item' => __('Khu vực mới', 'canhcamtheme'),
-			'view_item' => __('Xem khu vực', 'canhcamtheme'),
+		'name' => __('Khu vực', 'canhcamtheme'),
+		'singular_name' => __('Khu vực', 'canhcamtheme'),
+		'menu_name' => __('Khu vực', 'canhcamtheme'),
+		'all_items' => __('Tất cả khu vực', 'canhcamtheme'),
+		'add_new_item' => __('Thêm khu vực', 'canhcamtheme'),
+		'edit_item' => __('Sửa khu vực', 'canhcamtheme'),
+		'new_item' => __('Khu vực mới', 'canhcamtheme'),
+		'view_item' => __('Xem khu vực', 'canhcamtheme'),
 		),
 		'show_admin_column' => true,
 		'show_in_rest' => true,
 		'public' => true,
 		'rewrite' => array('slug' => 'shop-area'),
-	));
-}
-add_action('init', 'int_create_taxonomy', 0); // Ưu tiên chạy trước post type\
+		));
+		}
+		add_action('init', 'int_create_taxonomy', 0); // Ưu tiên chạy trước post type\
 
 
 
 
-function ajax_get_shop_areas()
-{
-	$parent = isset($_POST['parent']) ? $_POST['parent'] : 0;
-	$terms = get_terms(array(
+		function ajax_get_shop_areas()
+		{
+		$parent = isset($_POST['parent']) ? $_POST['parent'] : 0;
+		$terms = get_terms(array(
 		'taxonomy' => 'shop-area',
 		'hide_empty' => false,
 		'parent' => $parent,
-	));
-	$html = '';
-	if (!empty($terms) && $parent > 0) {
+		));
+		$html = '';
+		if (!empty($terms) && $parent > 0) {
 		$html .= '<option value="">' . __('Tỉnh / thành phố', 'canhcamtheme') . '</option>';
 		foreach ($terms as $term) {
-			$html .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
+		$html .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
 		}
-	} else {
+		} else {
 		$html .= '<option value="">' . __('Tỉnh / thành phố', 'canhcamtheme') . '</option>';
-	}
-	wp_send_json_success(array(
-		'html' => $html,
-	));
-}
-add_action('wp_ajax_get_shop_areas', 'ajax_get_shop_areas');
-add_action('wp_ajax_nopriv_get_shop_areas', 'ajax_get_shop_areas');
-
-
-// Get shop data
-function ajax_get_shop_data()
-{
-	$category   = isset($_POST['category']) ? intval($_POST['category']) : 0;
-	$areaParent = isset($_POST['areaParent']) ? intval($_POST['areaParent']) : 0;
-	$areaChild  = isset($_POST['areaChild']) ? intval($_POST['areaChild']) : 0;
-	$lang       = isset($_POST['lang']) ? $_POST['lang'] : '';
-
-	$args = array(
-		'post_type'      => 'shop',
-		'posts_per_page' => -1,
-		'lang'           => $lang,
-		'meta_query'     => array(
-			array(
-				'key'     => 'turn_off_shop',
-				'value'   => '1',
-				'compare' => '!=',
-			),
-		),
-	);
-
-	// Tax query
-	$tax_query = array('relation' => 'AND');
-
-	if ($category) {
-		$tax_query[] = array(
-			'taxonomy' => 'shop-category',
-			'field'    => 'term_id',
-			'terms'    => $category,
-		);
-	}
-	if ($areaParent) {
-		$tax_query[] = array(
-			'taxonomy' => 'shop-area',
-			'field'    => 'term_id',
-			'terms'    => $areaParent,
-		);
-	}
-	if ($areaChild) {
-		$tax_query[] = array(
-			'taxonomy' => 'shop-area',
-			'field'    => 'term_id',
-			'terms'    => $areaChild,
-		);
-	}
-
-	if (count($tax_query) > 1) {
-		$args['tax_query'] = $tax_query;
-	}
-
-	$query = new WP_Query($args);
-
-	ob_start(); // Bắt đầu ghi HTML ra buffer
-	$count = 0;
-	$no_result = false;
-	$map_iframe_first = '';
-	if ($query->have_posts()) {
-		while ($query->have_posts()) {
-			$query->the_post();
-			$map_iframe = get_field('map_iframe', get_the_ID());
-			if ($count == 0) {
-				$map_iframe_first = $map_iframe;
-			}
-			get_template_part('components/content-system');
-			$count++;
 		}
-	} else {
+		wp_send_json_success(array(
+		'html' => $html,
+		));
+		}
+		add_action('wp_ajax_get_shop_areas', 'ajax_get_shop_areas');
+		add_action('wp_ajax_nopriv_get_shop_areas', 'ajax_get_shop_areas');
+
+
+		// Get shop data
+		function ajax_get_shop_data()
+		{
+		$category = isset($_POST['category']) ? intval($_POST['category']) : 0;
+		$areaParent = isset($_POST['areaParent']) ? intval($_POST['areaParent']) : 0;
+		$areaChild = isset($_POST['areaChild']) ? intval($_POST['areaChild']) : 0;
+		$lang = isset($_POST['lang']) ? $_POST['lang'] : '';
+
+		$args = array(
+		'post_type' => 'shop',
+		'posts_per_page' => -1,
+		'lang' => $lang,
+		'meta_query' => array(
+		array(
+		'key' => 'turn_off_shop',
+		'value' => '1',
+		'compare' => '!=',
+		),
+		),
+		);
+
+		// Tax query
+		$tax_query = array('relation' => 'AND');
+
+		if ($category) {
+		$tax_query[] = array(
+		'taxonomy' => 'shop-category',
+		'field' => 'term_id',
+		'terms' => $category,
+		);
+		}
+		if ($areaParent) {
+		$tax_query[] = array(
+		'taxonomy' => 'shop-area',
+		'field' => 'term_id',
+		'terms' => $areaParent,
+		);
+		}
+		if ($areaChild) {
+		$tax_query[] = array(
+		'taxonomy' => 'shop-area',
+		'field' => 'term_id',
+		'terms' => $areaChild,
+		);
+		}
+
+		if (count($tax_query) > 1) {
+		$args['tax_query'] = $tax_query;
+		}
+
+		$query = new WP_Query($args);
+
+		ob_start(); // Bắt đầu ghi HTML ra buffer
+		$count = 0;
+		$no_result = false;
+		$map_iframe_first = '';
+		if ($query->have_posts()) {
+		while ($query->have_posts()) {
+		$query->the_post();
+		$map_iframe = get_field('map_iframe', get_the_ID());
+		if ($count == 0) {
+		$map_iframe_first = $map_iframe;
+		}
+		get_template_part('components/content-system');
+		$count++;
+		}
+		} else {
 		$no_result = true;
 		echo "<div class='no-result'>" . __('Không tìm thấy kết quả', 'canhcamtheme') . "</div>";
-	}
-	$html = ob_get_clean();
+		}
+		$html = ob_get_clean();
 
-	wp_send_json_success(array('html' => $html, 'map_iframe_first' => $map_iframe_first, 'no_result' => $no_result));
-}
-add_action('wp_ajax_get_shop_data', 'ajax_get_shop_data');
-add_action('wp_ajax_nopriv_get_shop_data', 'ajax_get_shop_data');
+		wp_send_json_success(array('html' => $html, 'map_iframe_first' => $map_iframe_first, 'no_result' =>
+		$no_result));
+		}
+		add_action('wp_ajax_get_shop_data', 'ajax_get_shop_data');
+		add_action('wp_ajax_nopriv_get_shop_data', 'ajax_get_shop_data');
 
 
-function get_page_id_by_template($template_name)
-{
-	$pages = get_pages([
+		function get_page_id_by_template($template_name)
+		{
+		$pages = get_pages([
 		'meta_key' => '_wp_page_template',
 		'meta_value' => $template_name,
 		'post_status' => 'publish'
-	]);
-	return !empty($pages) ? $pages[0]->ID : false;
-}
+		]);
+		return !empty($pages) ? $pages[0]->ID : false;
+		}
 
-function get_video_page_url()
-{
-	$page_id = get_page_id_by_template('templates/template_video.php');
-	if ($page_id) {
+		function get_video_page_url()
+		{
+		$page_id = get_page_id_by_template('templates/template_video.php');
+		if ($page_id) {
 		return get_permalink($page_id);
-	}
-	return false;
-}
-add_filter('get_video_page_url', 'get_video_page_url');
+		}
+		return false;
+		}
+		add_filter('get_video_page_url', 'get_video_page_url');
 
-function get_album_page_url()
-{
-	$page_id = get_page_id_by_template('templates/template_album.php');
-	if ($page_id) {
+		function get_album_page_url()
+		{
+		$page_id = get_page_id_by_template('templates/template_album.php');
+		if ($page_id) {
 		return get_permalink($page_id);
-	}
-	return false;
-}
-add_filter('get_album_page_url', 'get_album_page_url');
+		}
+		return false;
+		}
+		add_filter('get_album_page_url', 'get_album_page_url');
 
 
 
-function get_system_page_url()
-{
-	$page_id = get_page_id_by_template('templates/template_system.php');
-	if ($page_id) {
+		function get_system_page_url()
+		{
+		$page_id = get_page_id_by_template('templates/template_system.php');
+		if ($page_id) {
 		return get_permalink($page_id);
-	}
-	return false;
-}
-add_filter('get_system_page_url', 'get_system_page_url');
+		}
+		return false;
+		}
+		add_filter('get_system_page_url', 'get_system_page_url');

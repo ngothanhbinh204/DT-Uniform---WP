@@ -37,14 +37,20 @@ function canhcam_style()
 	 */
 	if (class_exists('CanhCam_Licsence_Class')) {
 		$my_license = CanhCam_Licsence_Class::init();
-		if (!$my_license->isDateExpiration()) {
-			if (stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false) {
+		// if (!$my_license->isDateExpiration()) {
+		// 	if (stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false) {
+		// 		wp_enqueue_script('front-end-global', THEME_URI . '/scripts/core.min.js', '', GENERATE_VERSION, true);
+		// 		wp_enqueue_script('front-end-main', THEME_URI . '/scripts/main.min.js', '', GENERATE_VERSION, true);
+		// 		wp_enqueue_script('custom-script', THEME_URI . '/scripts/custom.js', '', GENERATE_VERSION, true);
+		// 		wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+		// 	}
+		// }
+		if (stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false) {
 				wp_enqueue_script('front-end-global', THEME_URI . '/scripts/core.min.js', '', GENERATE_VERSION, true);
 				wp_enqueue_script('front-end-main', THEME_URI . '/scripts/main.min.js', '', GENERATE_VERSION, true);
 				wp_enqueue_script('custom-script', THEME_URI . '/scripts/custom.js', '', GENERATE_VERSION, true);
 				wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 			}
-		}
 	}
 }
 
@@ -102,12 +108,12 @@ function add_css_admin_menu()
 {
 	if (is_user_logged_in()) {
 ?>
-		<style>
-			body.admin-bar header {
-				top: 32px !important;
-			}
-		</style>
-	<?php
+<style>
+body.admin-bar header {
+	top: 32px !important;
+}
+</style>
+<?php
 	}
 }
 add_action('wp_head', 'add_css_admin_menu');
@@ -176,16 +182,17 @@ function my_login_logo_url()
 add_filter('login_headerurl', 'my_login_logo_url');
 function my_login_logo()
 { ?>
-	<style type="text/css">
-		#login h1 a,
-		.login h1 a {
-			background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/img/logo-canh-cam.png);
-			height: 49px;
-			width: 267px;
-			background-size: 267px auto;
-			background-repeat: no-repeat;
-		}
-	</style>
+<style type="text/css">
+#login h1 a,
+.login h1 a {
+	background-image: url(<?php echo get_stylesheet_directory_uri();
+	?>/img/logo-canh-cam.png);
+	height: 49px;
+	width: 267px;
+	background-size: 267px auto;
+	background-repeat: no-repeat;
+}
+</style>
 <?php }
 add_action('login_enqueue_scripts', 'my_login_logo');
 function my_login_stylesheet()

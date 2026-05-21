@@ -594,6 +594,89 @@
                     "parent_repeater": "field_69072cae45276"
                 }
             ]
+        },
+        {
+            "key": "field_tab_category_options",
+            "label": "Category Landing Page",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_contact_shortcode",
+            "label": "Shortcode form liên hệ (trang Landing Category)",
+            "name": "cat_contact_shortcode",
+            "type": "text",
+            "instructions": "Shortcode dùng chung cho section Contact trên tất cả trang Landing Category. VD: [contact-form-7 id=...",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_tab_contact_form_section",
+            "label": "Contact Form Section",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_contact_title",
+            "label": "Tieu de (Contact Title)",
+            "name": "contact_title",
+            "type": "text",
+            "instructions": "Tieu de hien thi trong section Contact Form.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_contact_desc",
+            "label": "Mo ta (Contact Desc)",
+            "name": "contact_desc",
+            "type": "wysiwyg",
+            "instructions": "Mo ta ngan duoi tieu de.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_contact_form_shortcode_option",
+            "label": "Shortcode form lien he (Contact Section)",
+            "name": "contact_form_shortcode",
+            "type": "text",
+            "instructions": "Shortcode dung chung cho section Contact Form. VD: [contact-form-7 id=...]",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "[contact-form-7 id=...]"
         }
     ],
     "location": [
@@ -615,5 +698,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1762414422
+    "modified": 1778743640
 }

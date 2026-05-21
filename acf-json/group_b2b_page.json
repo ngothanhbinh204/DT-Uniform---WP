@@ -1,0 +1,413 @@
+{
+    "key": "group_b2b_page",
+    "title": "B2B Page - Noi dung trang B2B",
+    "fields": [
+        {
+            "key": "field_b2b_tab_banner",
+            "label": "Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_banner_image",
+            "label": "Anh banner",
+            "name": "b2b_banner_image",
+            "type": "image",
+            "instructions": "Ti le: 1920x450.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_b2b_banner_title",
+            "label": "Tieu de banner",
+            "name": "b2b_banner_title",
+            "type": "text",
+            "instructions": "De trong se dung ten trang mac dinh.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_b2b_tab_s2",
+            "label": "Section 2 - AutoFit (Swiper + Content)",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_s2_enable",
+            "label": "Hien thi Section 2",
+            "name": "b2b_s2_enable",
+            "type": "true_false",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_b2b_s2_images",
+            "label": "Anh swiper (trai)",
+            "name": "b2b_s2_images",
+            "type": "gallery",
+            "instructions": "Danh sach anh cho slider ben trai.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": 0,
+            "max": 0,
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_b2b_s2_heading",
+            "label": "Tieu de (phai)",
+            "name": "b2b_s2_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_b2b_s2_content",
+            "label": "Noi dung (phai)",
+            "name": "b2b_s2_content",
+            "type": "wysiwyg",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_b2b_tab_s3",
+            "label": "Section 3 - Resources (Content + Sticky Image)",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_s3_enable",
+            "label": "Hien thi Section 3",
+            "name": "b2b_s3_enable",
+            "type": "true_false",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_b2b_s3_heading",
+            "label": "Tieu de (trai)",
+            "name": "b2b_s3_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_b2b_s3_content",
+            "label": "Noi dung (trai)",
+            "name": "b2b_s3_content",
+            "type": "wysiwyg",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_b2b_s3_image",
+            "label": "Anh sticky (phai)",
+            "name": "b2b_s3_image",
+            "type": "image",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_b2b_tab_s4",
+            "label": "Section 4 - CM (Full-width Image + Text)",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_s4_enable",
+            "label": "Hien thi Section 4",
+            "name": "b2b_s4_enable",
+            "type": "true_false",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_b2b_s4_image",
+            "label": "Anh nen toan chieu rong",
+            "name": "b2b_s4_image",
+            "type": "image",
+            "instructions": "Ti le: 1920x720.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_b2b_s4_heading",
+            "label": "Tieu de overlay",
+            "name": "b2b_s4_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_b2b_s4_content",
+            "label": "Mo ta overlay",
+            "name": "b2b_s4_content",
+            "type": "wysiwyg",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_b2b_tab_s5",
+            "label": "Section 5 - Production Capacity (Stats)",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_s5_enable",
+            "label": "Hien thi Section 5",
+            "name": "b2b_s5_enable",
+            "type": "true_false",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_b2b_s5_bg_image",
+            "label": "Anh nen",
+            "name": "b2b_s5_bg_image",
+            "type": "image",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_b2b_s5_heading",
+            "label": "Tieu de chinh",
+            "name": "b2b_s5_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": "PRODUCTION CAPACITY"
+        },
+        {
+            "key": "field_b2b_s5_subtitle",
+            "label": "Mo ta duoi tieu de",
+            "name": "b2b_s5_subtitle",
+            "type": "textarea",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_b2b_s5_stats",
+            "label": "Cac chi so (Countup)",
+            "name": "b2b_s5_stats",
+            "type": "repeater",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "collapsed": "field_b2b_s5_stat_number",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Them chi so",
+            "sub_fields": [
+                {
+                    "key": "field_b2b_s5_stat_number",
+                    "label": "So (number)",
+                    "name": "number",
+                    "type": "number",
+                    "wrapper": { "width": "15", "class": "", "id": "" },
+                    "default_value": "",
+                    "placeholder": "25"
+                },
+                {
+                    "key": "field_b2b_s5_stat_suffix",
+                    "label": "Hau to (+, days...)",
+                    "name": "suffix",
+                    "type": "text",
+                    "wrapper": { "width": "10", "class": "", "id": "" },
+                    "default_value": "+",
+                    "placeholder": "+"
+                },
+                {
+                    "key": "field_b2b_s5_stat_separator",
+                    "label": "Phan cach (,)",
+                    "name": "separator",
+                    "type": "text",
+                    "wrapper": { "width": "10", "class": "", "id": "" },
+                    "default_value": "",
+                    "placeholder": ","
+                },
+                {
+                    "key": "field_b2b_s5_stat_label",
+                    "label": "Nhan",
+                    "name": "label",
+                    "type": "wysiwyg",
+                    "wrapper": { "width": "40", "class": "", "id": "" },
+                    "default_value": "",
+                    "placeholder": "Partners over the world"
+                },
+                {
+                    "key": "field_b2b_s5_stat_url",
+                    "label": "URL (tuy chon)",
+                    "name": "url",
+                    "type": "url",
+                    "wrapper": { "width": "25", "class": "", "id": "" },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_b2b_s5_buttons",
+            "label": "Cac nut bam (Buttons)",
+            "name": "b2b_s5_buttons",
+            "type": "repeater",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "collapsed": "field_b2b_s5_btn_label",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Them nut",
+            "sub_fields": [
+                {
+					"key": "field_b2b_s5_btn_link",
+					"label": "Link URL",
+					"name": "link",
+					"type": "link",
+					"required": 0,
+					"conditional_logic": 0,
+					"wrapper": { "width": "", "class": "", "id": "" },
+					"return_format": "array"
+						}
+            ]
+        },
+        {
+            "key": "field_b2b_tab_s6",
+            "label": "Section 6 - San pham (Swiper)",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_b2b_s6_enable",
+            "label": "Hien thi Section 6",
+            "name": "b2b_s6_enable",
+            "type": "true_false",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_b2b_s6_heading",
+            "label": "Tieu de section",
+            "name": "b2b_s6_heading",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "placeholder": "Let's choose your style, and book our B2B Production"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/template_b2b.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}

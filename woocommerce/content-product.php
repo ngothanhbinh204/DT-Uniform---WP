@@ -38,19 +38,15 @@ if ($product->is_type('variation')) {
 	$thumb = get_the_post_thumbnail_url($product->get_id(), 'full');
 }
 ?>
-<div <?php wc_product_class('product-item', $product); ?>>
-	<div class="img">
-		<a class="img-ratio" href="<?php the_permalink(); ?>">
-			<img
-				class="lozad undefined"
-				data-src="<?php echo $thumb; ?>"
-				alt="<?php the_title(); ?>" /></a>
-	</div>
-	<div class="content">
-		<div class="title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-		<div class="desc">
-			<?php echo wp_trim_words($product->get_short_description(), 40, '...'); ?>
+
+<a href="<?php the_permalink(); ?>" <?php wc_product_class('product-item card-products group', $product); ?>>
+	<div class="image-product">
+		<div class="img img-ratio ratio:pt-[527_393] zoom-img "><img class="lozad" data-src="<?php echo $thumb; ?>"
+				alt="<?php the_title(); ?>" src="<?php echo $thumb; ?>" data-loaded="true">
 		</div>
 	</div>
-	<a href="<?php the_permalink(); ?>" class="stretched-link"></a>
-</div>
+	<div class="main-content">
+		<div class="product-name"><?php the_title(); ?></div>
+		<div class="product-price"><?php echo $product->get_price_html(); ?></div>
+	</div>
+</a>

@@ -44,20 +44,20 @@ add_action('init', 'theme_remove_woocommerce_hooks');
 function remove_variation_dropdown_style()
 {
 ?>
-    <style>
-        .variations select,
-        .variations .label {
-            display: none !important;
-        }
+<style>
+.variations select,
+.variations .label {
+	display: none !important;
+}
 
-        .reset_variations {
-            display: none !important;
-        }
+.reset_variations {
+	display: none !important;
+}
 
-        .woocommerce-variation-price {
-            display: none !important;
-        }
-    </style>
+.woocommerce-variation-price {
+	display: none !important;
+}
+</style>
 <?php
 }
 add_action('wp_head', 'remove_variation_dropdown_style');
@@ -319,14 +319,19 @@ function transfer_variation_images_to_acf_gallery()
 // 
 
 add_filter('woocommerce_get_price_html', 'custom_woocommerce_get_price_html', 10, 2);
+
 function custom_woocommerce_get_price_html($price, $product)
 {
-    // Nếu là sản phẩm có biến thể thì lấy giá hiển thị của biến thể
+    // Variable product
     if ($product->is_type('variable')) {
+
         $prices = $product->get_variation_prices(true);
+
         if (!empty($prices['price'])) {
+
             $min_price = current($prices['price']);
             $max_price = end($prices['price']);
+
             if ($min_price !== $max_price) {
                 $price = wc_price($min_price) . ' - ' . wc_price($max_price);
             } else {
@@ -334,60 +339,175 @@ function custom_woocommerce_get_price_html($price, $product)
             }
         }
     }
-    // Nếu có giá giảm
+
+    // Sale product
     elseif ($product->is_on_sale()) {
+
         $regular_price = wc_price($product->get_regular_price());
         $sale_price = wc_price($product->get_sale_price());
+
         $price = '<del>' . $regular_price . '</del> <ins>' . $sale_price . '</ins>';
     }
-    // Nếu là giá thường
+
+    // Normal product
     else {
-        $price = wc_price($product->get_price());
+
+        if ($product->get_price() > 0) {
+            $price = wc_price($product->get_price());
+        } else {
+            $price = __('Liên hệ', 'canhcamtheme');
+        }
     }
 
-    // Gói lại HTML theo yêu cầu
+    // Không phải trang single product
+    if (!is_product()) {
+        return $price;
+    }
 
-    if ($product->get_price() > 0) {
-        $custom_html = '
+    // Single product
+    return '
     <div class="price-product">
-        <div class="label">' . __('Giá sản phẩm:', 'canhcamtheme') . '</div>
+        <div class="label">' . __('Price:', 'canhcamtheme') . '</div>
         <div class="price">' . $price . '</div>
     </div>';
-    } else {
-        $custom_html = '<div class="price-product">
-        <div class="label">' . __('Giá sản phẩm:', 'canhcamtheme') . '</div>
-        <div class="price bold">' . __('Liên hệ', 'canhcamtheme') . '</div>
-    </div>';
-    }
-
-    return $custom_html;
 }
 
 
 
+// ================================================
+// Custom Catalog Sorting
+// ================================================
 
-
-// Thêm các tùy chọn sắp xếp vào dropdown của WooCommerce
+/**
+ * Đăng ký các tùy chọn sắp xếp trong dropdown của WooCommerce.
+ */
 add_filter('woocommerce_catalog_orderby', 'custom_translate_woocommerce_orderby');
 add_filter('woocommerce_default_catalog_orderby_options', 'custom_translate_woocommerce_orderby');
 function custom_translate_woocommerce_orderby($sortby)
 {
     $sortby = array();
 
-    $sortby['featured']   = __('Sản phẩm nổi bật', 'canhcamtheme');
-    $sortby['sales']      = __('Sản phẩm bán chạy nhất', 'canhcamtheme');
-    $sortby['favorite']   = __('Sản phẩm yêu thích', 'canhcamtheme');
-    $sortby['price-desc'] = __('Sản phẩm từ cao tới thấp', 'canhcamtheme');
+    $sortby['featured']   = __('Featured Products', 'canhcamtheme');
+    $sortby['sales']      = __('Best Selling Products', 'canhcamtheme');
+    $sortby['favorite']   = __('Favorite Products', 'canhcamtheme');
+    $sortby['price-desc'] = __('Products from High to Low', 'canhcamtheme');
 
     return $sortby;
 }
 
-// Xử lý logic sắp xếp tương ứng
+
+/**
+ * Build WP_Query args chuẩn cho từng kiểu sắp xếp.
+ *
+ * Lý do dùng WooCommerce native thay vì ACF boolean:
+ *  - ACF boolean không tự cập nhật theo dữ liệu bán hàng thật.
+ *  - `total_sales` được WooCommerce tự tăng khi order hoàn thành → dữ liệu chính xác.
+ *  - `product_visibility` taxonomy là chuẩn WC, tương thích mọi plugin/query.
+ *  - Boolean meta không có index hiệu quả → chậm khi catalog lớn.
+ *
+ * @param string $orderby_value  Giá trị từ $_GET['orderby']
+ * @param array  $args           WP_Query args hiện tại (dùng khi merge với facetwp_query_args)
+ * @return array                 Modified WP_Query args
+ */
+function custom_build_sort_args($orderby_value, $args = array())
+{
+    // Reset các key có thể gây conflict từ query trước
+    unset($args['meta_key'], $args['_custom_sort_featured']);
+
+    switch ($orderby_value) {
+
+        /**
+         * FEATURED: Taxonomy 'product_visibility', term slug = 'featured'
+         *
+         * WooCommerce lưu featured tại:
+         *   wp_term_relationships (object_id = post_id, term_taxonomy_id = ID của term 'featured')
+         *   wp_term_taxonomy (taxonomy = 'product_visibility')
+         *   wp_terms (slug = 'featured')
+         *
+         * posts_clauses sẽ LEFT JOIN để ưu tiên featured lên đầu, vẫn hiển thị toàn bộ sản phẩm.
+         */
+        case 'featured':
+            $args['_custom_sort_featured'] = true;
+            $args['orderby'] = 'menu_order';
+            $args['order']   = 'ASC';
+            break;
+
+        /**
+         * BEST SELLING: Meta key 'total_sales' (WooCommerce native)
+         *
+         * WooCommerce lưu tại:
+         *   wp_postmeta: meta_key = 'total_sales', meta_value = số đơn hàng hoàn thành
+         *   Tự động cập nhật qua woocommerce_product_set_stock / order completion hooks.
+         */
+        case 'sales':
+            $args['meta_key'] = 'total_sales';
+            $args['orderby']  = 'meta_value_num';
+            $args['order']    = 'DESC';
+            break;
+
+        /**
+         * FAVORITE: TODO — cần xác định business logic trước khi implement.
+         *
+         * Logic cũ (ACF boolean `product_favorite`) đã bị loại bỏ vì:
+         *   - Không phản ánh dữ liệu tương tác thực tế của user
+         *   - Không tự động cập nhật
+         *   - Khó scale khi catalog lớn
+         *
+         * Hướng refactor đề xuất:
+         *   Option A: Custom taxonomy 'product_favorite' (tốt nhất cho lọc & indexing)
+         *   Option B: Post meta '_favorite_count' tổng hợp từ wishlist
+         *   Option C: Tích hợp với plugin wishlist nếu có
+         *
+         * Tạm fallback về menu_order trong khi chờ quyết định.
+         */
+        case 'favorite':
+            /*
+            // TODO: Implement after deciding favorite data source
+            $args['meta_key'] = '_favorite_count';
+            $args['orderby']  = 'meta_value_num';
+            $args['order']    = 'DESC';
+            */
+            $args['orderby'] = 'menu_order';
+            $args['order']   = 'ASC';
+            break;
+
+        /**
+         * PRICE DESC: Meta key '_price' (WooCommerce native)
+         *
+         * WooCommerce lưu tại wp_postmeta: meta_key = '_price'
+         * Với variable product, '_price' = giá thấp nhất trong các variation.
+         */
+        case 'price-desc':
+            $args['meta_key'] = '_price';
+            $args['orderby']  = 'meta_value_num';
+            $args['order']    = 'DESC';
+            break;
+
+        default:
+            $args['orderby'] = 'menu_order';
+            $args['order']   = 'ASC';
+            break;
+    }
+
+    return $args;
+}
+
+
+/**
+ * pre_get_posts: Áp dụng custom sort cho page load (non-FacetWP AJAX).
+ *
+ * Khi FacetWP đang xử lý AJAX request, hook này bị bỏ qua để tránh conflict.
+ * facetwp_query_args filter sẽ đảm nhiệm thay.
+ */
 add_action('pre_get_posts', 'custom_orderby_featured_sales_favorite');
 function custom_orderby_featured_sales_favorite($query)
 {
-    // Chỉ áp dụng cho main query trên trang shop, category hoặc tag
     if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    // FacetWP AJAX: nhường quyền cho facetwp_query_args để tránh double-apply
+    if (defined('FACETWP_DOING_AJAX') && FACETWP_DOING_AJAX) {
         return;
     }
 
@@ -395,72 +515,71 @@ function custom_orderby_featured_sales_favorite($query)
         return;
     }
 
-    // Lấy giá trị orderby từ URL hoặc mặc định
     $orderby_value = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'featured';
+    $args = custom_build_sort_args($orderby_value);
 
-    switch ($orderby_value) {
-
-        // --- Sản phẩm nổi bật ---
-        case 'featured':
-            $query->set('orderby', 'menu_order');
-            $query->set('order', 'ASC');
-            break;
-
-        // --- Sản phẩm bán chạy nhất ---
-        case 'sales':
-            // Ưu tiên sản phẩm có ACF product_sales = true lên trước, vẫn hiển thị toàn bộ
-            $query->set('meta_query', array(
-                'relation' => 'OR',
-                array(
-                    'key'     => 'product_sales',
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key'     => 'product_sales',
-                    'compare' => 'NOT EXISTS',
-                ),
-            ));
-            $query->set('orderby', array(
-                'meta_value_num' => 'DESC', // true trước
-                'menu_order'     => 'ASC',
-            ));
-            $query->set('meta_key', 'product_sales');
-            break;
-
-        // --- Sản phẩm yêu thích ---
-        case 'favorite':
-            // Ưu tiên product_favorite = true, nhưng vẫn hiển thị hết
-            $query->set('meta_query', array(
-                'relation' => 'OR',
-                array(
-                    'key'     => 'product_favorite',
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key'     => 'product_favorite',
-                    'compare' => 'NOT EXISTS',
-                ),
-            ));
-            $query->set('orderby', array(
-                'meta_value_num' => 'DESC',
-                'menu_order'     => 'ASC',
-            ));
-            $query->set('meta_key', 'product_favorite');
-            break;
-
-        // --- Giá giảm dần ---
-        case 'price-desc':
-            $query->set('meta_key', '_price');
-            $query->set('orderby', 'meta_value_num');
-            $query->set('order', 'DESC');
-            break;
-
-        // --- Mặc định ---
-        default:
-            $query->set('orderby', 'menu_order');
-            $query->set('order', 'ASC');
-            break;
+    foreach ($args as $key => $value) {
+        $query->set($key, $value);
     }
+}
+
+
+/**
+ * facetwp_query_args: Áp dụng custom sort khi FacetWP rebuild query qua AJAX.
+ *
+ * Đây là hook chính thức của FacetWP để modify WP_Query args.
+ * Không dùng pre_get_posts cho AJAX request vì FacetWP có thể override.
+ *
+ * @see https://facetwp.com/help-center/developers/hooks/facetwp_query_args/
+ */
+add_filter('facetwp_query_args', 'custom_facetwp_sort_args', 10, 2);
+function custom_facetwp_sort_args($args, $class)
+{
+    $orderby_value = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'featured';
+    return custom_build_sort_args($orderby_value, $args);
+}
+
+
+/**
+ * posts_clauses: Xử lý 'featured first' bằng cách LEFT JOIN taxonomy product_visibility.
+ *
+ * Tại sao cần posts_clauses thay vì tax_query thông thường?
+ *  - tax_query lọc (WHERE), không sort → chỉ hiện featured, không hiện toàn bộ.
+ *  - posts_clauses cho phép thêm JOIN + ORDER BY tùy chỉnh vào SQL cuối.
+ *  - LEFT JOIN: lấy tất cả sản phẩm; CASE WHEN: đẩy featured lên đầu (0 trước 1).
+ *
+ * Chỉ kích hoạt khi query có flag '_custom_sort_featured' (set bởi custom_build_sort_args).
+ */
+add_filter('posts_clauses', 'custom_featured_sort_clauses', 10, 2);
+function custom_featured_sort_clauses($clauses, $query)
+{
+    if (!$query->get('_custom_sort_featured')) {
+        return $clauses;
+    }
+
+    global $wpdb;
+
+    // Tránh JOIN trùng lặp (FacetWP có thể chạy nhiều pass trong một request)
+    if (strpos($clauses['join'], 'tr_feat_vis') !== false) {
+        return $clauses;
+    }
+
+    $featured_term = get_term_by('slug', 'featured', 'product_visibility');
+
+    if (!$featured_term) {
+        return $clauses;
+    }
+
+    $ttid = (int) $featured_term->term_taxonomy_id;
+
+    $clauses['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS tr_feat_vis
+                          ON ({$wpdb->posts}.ID = tr_feat_vis.object_id
+                          AND tr_feat_vis.term_taxonomy_id = {$ttid})";
+
+    $clauses['orderby'] = "CASE WHEN tr_feat_vis.object_id IS NOT NULL THEN 0 ELSE 1 END ASC,
+                           {$wpdb->posts}.menu_order ASC";
+
+    return $clauses;
 }
 
 
@@ -517,7 +636,7 @@ function filter_product_by_category()
             'posts_per_page' => 8,
             'tax_query' => array(
                 array(
-                    'taxonomy' => 'product_cat',
+                    'taxoinomy' => 'product_cat',
                     'field' => 'term_id',
                     'terms' => $category_id,
                 ),
@@ -545,37 +664,37 @@ add_action('wp_ajax_nopriv_filter_product_by_category', 'filter_product_by_categ
 function add_Admin_script()
 {
 ?>
-    <script>
-        jQuery(document).ready(function($) {
-            $(document).on(
-                'change',
-                '[data-name="category"]  select',
-                function() {
-                    const select2 = $(this).select2("data");
-                    const value = select2[0].id;
-                    const title = select2[0].text;
-                    console.log(value, title);
-                    $(this)
-                        .closest(".acf-fields")
-                        .find('[data-type="relationship"] select optgroup')
-                        .each(function() {
-                            $(this)
-                                .find("option")
-                                .each(function() {
-                                    if ($(this).text() === title) {
-                                        $(this).prop("selected", true);
-                                    }
-                                });
-                        });
-                    $(this)
-                        .closest(".acf-fields")
-                        .find('[data-type="relationship"] select')
-                        .trigger("change");
-                    $(this).closest(".acf-fields").find(".values ul").children().remove();
-                }
-            );
-        });
-    </script>
+<script>
+jQuery(document).ready(function($) {
+	$(document).on(
+		'change',
+		'[data-name="category"]  select',
+		function() {
+			const select2 = $(this).select2("data");
+			const value = select2[0].id;
+			const title = select2[0].text;
+			console.log(value, title);
+			$(this)
+				.closest(".acf-fields")
+				.find('[data-type="relationship"] select optgroup')
+				.each(function() {
+					$(this)
+						.find("option")
+						.each(function() {
+							if ($(this).text() === title) {
+								$(this).prop("selected", true);
+							}
+						});
+				});
+			$(this)
+				.closest(".acf-fields")
+				.find('[data-type="relationship"] select')
+				.trigger("change");
+			$(this).closest(".acf-fields").find(".values ul").children().remove();
+		}
+	);
+});
+</script>
 <?php
 }
 add_action('admin_footer', 'add_Admin_script');
@@ -666,46 +785,50 @@ class Custom_Walker_Category extends Walker_Category
 
 function render_category_product_sidebar()
 {
-    if (!is_tax('product_cat')) return;
+    if (!is_tax('product_cat') && !is_shop()) return;
 
-    $current_term = get_queried_object();
+    $current_term    = is_tax('product_cat') ? get_queried_object() : null;
+    $current_term_id = $current_term ? $current_term->term_id : 0;
 
-    // Lấy tất cả category cấp 2 trở đi (bỏ cấp 1)
-    $level2_terms = get_terms([
+    // Lấy tất cả category cấp 1 (root)
+    $root_terms = get_terms([
         'taxonomy'   => 'product_cat',
         'parent'     => 0,
         'hide_empty' => false,
     ]);
 
-    foreach ($level2_terms as $level1) {
-        $children_lvl2 = get_terms([
+    foreach ($root_terms as $root_term) {
+        $is_active = $current_term_id && (
+            $current_term_id == $root_term->term_id ||
+            term_is_ancestor_of($root_term->term_id, $current_term_id, 'product_cat')
+        );
+
+        $has_children = !empty(get_terms([
             'taxonomy'   => 'product_cat',
-            'parent'     => $level1->term_id,
+            'parent'     => $root_term->term_id,
             'hide_empty' => false,
-        ]);
+            'fields'     => 'ids',
+            'number'     => 1,
+        ]));
 
-        if (empty($children_lvl2)) continue; // bỏ nếu không có con
-
-        foreach ($children_lvl2 as $level2) {
-            // Kiểm tra xem term hiện tại có nằm trong nhánh này không
-            $is_active = ($current_term->term_id == $level2->term_id || term_is_ancestor_of($level2->term_id, $current_term->term_id, 'product_cat'));
-
-            echo '<div class="category-product-heading">';
-            echo '<div class="wrap-title flex items-center justify-between' . ($is_active ? ' active' : '') . '">';
-            echo '<div class="title"><a href="' . get_term_link($level2) . '">' . esc_html($level2->name) . '</a></div>';
+        echo '<div class="category-product-heading">';
+        echo '<div class="wrap-title flex items-center justify-between' . ($is_active ? ' active' : '') . '">';
+        echo '<div class="title"><a href="' . esc_url(get_term_link($root_term)) . '">' . esc_html($root_term->name) . '</a></div>';
+        if ($has_children) {
             echo '<div class="icon"><i class="fa-light fa-angle-down"></i></div>';
-            echo '</div>';
+        }
+        echo '</div>';
 
-            // Render con của cấp 2 (cấp 3 trở đi)
-            $children_html = render_category_children_recursive($level2->term_id, $current_term);
+        if ($has_children) {
+            $children_html = render_category_children_recursive($root_term->term_id, $current_term);
             if ($children_html) {
-                echo '<ul class="menu-list level-0" ' . ($is_active ? 'style="display:block;"' : '') . '>';
+                echo '<ul class="menu-list level-0"' . ($is_active ? ' style="display:block;"' : '') . '>';
                 echo $children_html;
                 echo '</ul>';
             }
-
-            echo '</div>';
         }
+
+        echo '</div>';
     }
 }
 
@@ -720,7 +843,10 @@ function render_category_children_recursive($parent_id, $current_term)
 
     $html = '';
     foreach ($terms as $term) {
-        $is_active = ($current_term->term_id == $term->term_id || term_is_ancestor_of($term->term_id, $current_term->term_id, 'product_cat'));
+        $is_active = $current_term && (
+            $current_term->term_id == $term->term_id ||
+            term_is_ancestor_of($term->term_id, $current_term->term_id, 'product_cat')
+        );
 
         $html .= '<li class="term-item' . ($is_active ? ' active' : '') . '">';
         $html .= '<div class="menu-item">';

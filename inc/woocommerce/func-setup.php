@@ -45,7 +45,11 @@ function cc_woocommerce_scripts()
 		get_template_directory_uri() . '/scripts/woocommerce/cc-woocommerce.js',
 		array('jquery'),
 		GENERATE_VERSION,
-		true
+		true,
+		'woo-custom', get_template_directory_uri() . '/scripts/woocommerce/woo.custom.js',
+		array('jquery'),
+		GENERATE_VERSION,
+		true,
 	);
 
 	wp_localize_script('cc-woocommerce', 'cc_woocommerce_params', array(
@@ -174,7 +178,7 @@ function wc_refresh_mini_cart_count($fragments)
 	ob_start();
 	$items_count = WC()->cart->get_cart_contents_count();
 ?>
-	<span class="count-cart"><strong>(<?php echo $items_count ? $items_count : 0; ?>)</strong></span>
+<span class="count-cart"><strong>(<?php echo $items_count ? $items_count : 0; ?>)</strong></span>
 <?php
 	$fragments['.count-cart'] = ob_get_clean();
 	return $fragments;
@@ -206,97 +210,134 @@ function woo_add_buy_now_button()
 
 
 ?>
-	<!-- <button type="button" class="product-buy-now  btn btn-solid w-full buy_now_button">
-		<span><?= __('Mua ngay', 'canhcamtheme') ?></span>
-		<i class="fa-light fa-shopping-cart"></i>
-	</button> -->
-	<?php if ($type_product == 'solution') { ?>
-		<?php if (!empty($button_contact_solution)) { ?>
-			<div class="button"><a class="btn btn-gradient w-full" data-fancybox data-src="#modal-home-form"
-					href="<?= $button_contact_solution['url'] ?>"><span><?= $button_contact_solution['title'] ?></span><i class="fa-light fa-pen-line"></i></a></div>
-		<?php } ?>
-	<?php } ?>
-	<script>
-		jQuery(document).ready(function($) {
-			// Custom add to cart button
-			$("body").on("click", ".single_add_to_cart_button:not(.buynow)", function(e) {
-				e.preventDefault();
-				// Declaration
-				var $thisbutton = $(this),
-					$form = $thisbutton.closest('form.cart'),
-					id = $thisbutton.val(),
-					product_qty = $form.find('input[name=quantity]').val() || 1,
-					variation_id = $form.find('input[name=variation_id]').val() || 0,
-					product_id = $form.find('input[name=product_id]').val() || id;
-				var dataNoti = {
-					title: $thisbutton.closest('.section-product-detail.section-1 .wrap-content').find('.product-title').text(),
-					variation: $form.find('li.thwvsf-selected span').text(),
-					price: $form.find('.price').html() || $thisbutton.closest('.section-product-detail').find('.product-price').html(),
-				}
-				var data = {
-					action: 'woocommerce_ajax_add_to_cart',
-					product_id: product_id,
-					product_sku: '',
-					variation_id: variation_id,
-					quantity: product_qty,
-				};
-				$(document.body).trigger('adding_to_cart', [$thisbutton, data]);
-				$.ajax({
-					type: 'post',
-					url: woocommerce_params.ajax_url,
-					data: data,
-					beforeSend: function(response) {
-						$('.loading-bar').css({
-							'width': '40%',
-							'opacity': '1'
-						});
-						$thisbutton.addClass('disable loading');
-					},
-					complete: function(response) {
-						$('.loading-bar').css({
-							'width': '100%',
-							'opacity': '1'
-						});
-						setTimeout(function() {
-							$('.loading-bar').css({
-								'width': '0',
-								'opacity': '0'
-							});
-						}, 500);
-						$thisbutton.removeClass('disable loading');
-						$('.add_to_cart_button').removeClass('disable loading');
-						$('.shopping-cart-wrapper, .overlay-blur').addClass('active');
-					},
-					success: function(response) {
-						if (response.error && response.product_url) {
-							// window.location = response.product_url;
-							alert(response.message);
-							return;
-						} else {
-							$(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton, dataNoti]);
-						}
+<!-- <button type="button" class="product-buy-now  btn btn-solid w-full buy_now_button">
+	<span><?= __('Mua ngay', 'canhcamtheme') ?></span>
+	<i class="fa-light fa-shopping-cart"></i>
+</button> -->
+<?php if ($type_product == 'solution') { ?>
+<?php if (!empty($button_contact_solution)) { ?>
+<div class="button"><a class="btn btn-gradient w-full" data-fancybox data-src="#modal-home-form"
+		href="<?= $button_contact_solution['url'] ?>"><span><?= $button_contact_solution['title'] ?></span><i
+			class="fa-light fa-pen-line"></i></a></div>
+<?php } ?>
+<?php } ?>
+<script>
+jQuery(document).ready(function($) {
+	// Guard: prevent duplicate bindings when hook fires multiple times
+	if (typeof window.ccAtcBound !== 'undefined') return;
+	window.ccAtcBound = true;
 
-						const miniCart = response.fragments["div.widget_shopping_cart_content"];
-						const countCart = response.fragments[".count-cart"];
-						$(".widget_shopping_cart_content").replaceWith(miniCart);
-						$(".count-cart").replaceWith(countCart);
-						$('body').addClass('show-cart')
-					},
-				});
-				return false;
-			});
-			// Custom buy now button
-			$("body").on("click", ".buy_now_button", function(e) {
-				e.preventDefault();
-				if ($(this).hasClass('disable')) {
-					return false;
-				}
-				$(this).addClass('disable loading');
-				$('.single_add_to_cart_button').addClass('buynow')
-				$('.single_add_to_cart_button').trigger('click');
-			});
+	// Custom add to cart button
+	$("body").on("click", ".single_add_to_cart_button:not(.buynow)", function(e) {
+		e.preventDefault();
+		// Declaration
+		var $thisbutton = $(this),
+			$form = $thisbutton.closest('form.cart'),
+			id = $thisbutton.val(),
+			product_qty = $form.find('input[name=quantity]').val() || 1,
+			variation_id = $form.find('input[name=variation_id]').val() || 0,
+			product_id = $form.find('input[name=product_id]').val() || id;
+
+		console.log('[ATC] click fired', {
+			product_id,
+			variation_id,
+			product_qty
 		});
-	</script>
+
+		var dataNoti = {
+			title: $thisbutton.closest('.section-product-detail.section-1 .wrap-content').find(
+				'.product-title').text(),
+			variation: $form.find('li.thwvsf-selected span').text(),
+			price: $form.find('.price').html() || $thisbutton.closest('.section-product-detail')
+				.find('.price-product .price').html(),
+		}
+		var data = {
+			action: 'woocommerce_ajax_add_to_cart',
+			product_id: product_id,
+			product_sku: '',
+			variation_id: variation_id,
+			quantity: product_qty,
+		};
+		$thisbutton.closest('form.cart, form.variations_form').off('submit');
+		$(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+		$.ajax({
+			type: 'post',
+			url: woocommerce_params.ajax_url,
+			data: data,
+			beforeSend: function(response) {
+				console.log('[ATC] beforeSend');
+				$('.loading-bar').css({
+					'width': '40%',
+					'opacity': '1'
+				});
+				$thisbutton.addClass('disable loading');
+			},
+			complete: function(response) {
+				console.log('[ATC] complete fired', response.status, response.responseText ?
+					response.responseText.substring(0, 200) : '');
+				$('.loading-bar').css({
+					'width': '100%',
+					'opacity': '1'
+				});
+				setTimeout(function() {
+					$('.loading-bar').css({
+						'width': '0',
+						'opacity': '0'
+					});
+				}, 500);
+				$thisbutton.removeClass('disable loading disabled');
+				$('.add_to_cart_button').removeClass('disable loading disabled');
+				$('.buy_now_button').removeClass('disable loading disabled');
+				$('.single_add_to_cart_button').removeClass('buynow disabled');
+				console.log('[ATC] complete: classes removed');
+			},
+			success: function(response) {
+				console.log('[ATC] success fired', response);
+				if (response.error && response.product_url) {
+					// window.location = response.product_url;
+					alert(response.message);
+					return;
+				}
+
+				if (!response.fragments) {
+					console.warn('[ATC] success: response.fragments missing!', response);
+					return;
+				}
+
+				$(document.body).trigger('added_to_cart', [response.fragments, response
+					.cart_hash, $thisbutton, dataNoti
+				]);
+
+				const miniCart = response.fragments["div.widget_shopping_cart_content"];
+				const countCart = response.fragments[".count-cart"];
+				$(".widget_shopping_cart_content").replaceWith(miniCart);
+				$(".count-cart").replaceWith(countCart);
+				$('body').addClass('show-cart')
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.error('[ATC] AJAX error', textStatus, errorThrown, jqXHR
+					.responseText ? jqXHR.responseText.substring(0, 500) : '');
+			},
+		});
+		return false;
+	});
+	// Custom buy now button
+	$("body").on("click", ".buy_now_button", function(e) {
+		e.preventDefault();
+		if ($(this).hasClass('disable')) {
+			return false;
+		}
+		$(this).addClass('disable loading');
+		// WC fires added_to_cart after native add succeeds - use it for cleanup
+		$(document.body).one('added_to_cart.buynow', function() {
+			$('.buy_now_button').removeClass('disable loading');
+			$('.single_add_to_cart_button').removeClass('buynow');
+		});
+		$('.single_add_to_cart_button').addClass('buynow');
+		$('.single_add_to_cart_button').trigger('click');
+	});
+});
+</script>
 <?php
 }
 
@@ -448,21 +489,22 @@ function update_cart_item()
 function woo_quantity_cart_page()
 {
 ?>
-	<script type="text/javascript">
-		// jQuery(document).ready(function() {
-		// 	if (typeof cc_woocommerce_params === 'undefined') return false;
-		// 	jQuery(document).on('click', '.woocommerce-cart-form .minus, .woocommerce-cart-form .plus', function(e) {
-		// 		setTimeout(() => {
-		// 			jQuery('body').find('[name="update_cart"]').prop('disabled', false)
-		// 			jQuery('body').find('[name="update_cart"]').trigger('click')
-		// 		}, 400);
-		// 		jQuery(document.body).trigger('wc_fragment_refresh'); // Đoạn này giúp nó refresh lại page khi update sản phẩm
-		// 		jQuery(document.body).trigger('wc_fragments_refreshed');
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	if (typeof cc_woocommerce_params === 'undefined') return false;
+	jQuery(document).on('click', '.woocommerce-cart-form .minus, .woocommerce-cart-form .plus', function(e) {
+		setTimeout(() => {
+			jQuery('body').find('[name="update_cart"]').prop('disabled', false)
+			jQuery('body').find('[name="update_cart"]').trigger('click')
+		}, 400);
+		jQuery(document.body).trigger(
+			'wc_fragment_refresh'); // Đoạn này giúp nó refresh lại page khi update sản phẩm
+		jQuery(document.body).trigger('wc_fragments_refreshed');
 
-		// 		e.stopPropagation()
-		// 	})
-		// })
-	</script>
+		e.stopPropagation()
+	})
+})
+</script>
 <?php
 }
 

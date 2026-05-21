@@ -1,0 +1,19 @@
+User-agent: *
+
+Disallow: /wp-content/plugins/
+
+Disallow: /wp-content/themes/
+
+Disallow: /wp-admin/
+
+Allow: /wp-admin/admin-ajax.php
+
+Disallow: */?
+
+Disallow: /wp-includes/
+
+Disallow: */feed
+
+
+
+Sitemap: https://hplog.com.vn/sitemap_index.xml

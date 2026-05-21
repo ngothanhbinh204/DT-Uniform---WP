@@ -19,6 +19,8 @@
 if (!defined('ABSPATH')) {
 	exit;
 }
+
+$order_button_text = apply_filters('woocommerce_order_button_text', __('Place order', 'woocommerce'));
 ?>
 
 <section class="section-checkout section-padding">
@@ -33,7 +35,8 @@ if (!defined('ABSPATH')) {
 		}
 		?>
 		<?php do_action('woocommerce_checkout_before_order_review'); ?>
-		<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
+		<form name="checkout" method="post" class="checkout woocommerce-checkout"
+			action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col lg:w-8/12">
 					<div class="wrap-form-checkout section-wrap-box-white p-7.5">
@@ -43,11 +46,11 @@ if (!defined('ABSPATH')) {
 						<?php do_action('woocommerce_checkout_billing'); ?>
 						<?php do_action('custom_woocommerce_payment') ?>
 						<?php if ($checkout->get_checkout_fields()) : ?>
-							<?php do_action('woocommerce_checkout_before_customer_details');
+						<?php do_action('woocommerce_checkout_before_customer_details');
 							?>
-							<?php do_action('woocommerce_checkout_shipping');
+						<?php do_action('woocommerce_checkout_shipping');
 							?>
-							<?php do_action('woocommerce_checkout_after_customer_details');
+						<?php do_action('woocommerce_checkout_after_customer_details');
 							?>
 						<?php endif; ?>
 						<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
@@ -74,7 +77,10 @@ if (!defined('ABSPATH')) {
 							/* translators: $1 and $2 opening and closing emphasis tags respectively */
 							printf(esc_html__('Since your browser does not support JavaScript, or it is disabled, please ensure you click the %1$sUpdate Totals%2$s button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'woocommerce'), '<em>', '</em>');
 							?>
-							<br /><button type="submit" class="button alt<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e('Update totals', 'woocommerce'); ?>"><?php esc_html_e('Update totals', 'woocommerce'); ?></button>
+							<br /><button type="submit"
+								class="button alt<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
+								name="woocommerce_checkout_update_totals"
+								value="<?php esc_attr_e('Update totals', 'woocommerce'); ?>"><?php esc_html_e('Update totals', 'woocommerce'); ?></button>
 						</noscript>
 
 						<?php wc_get_template('checkout/terms.php'); ?>
@@ -105,90 +111,90 @@ if (!defined('ABSPATH')) {
 </section>
 
 <style>
-	.woocommerce-message {
-		display: none;
-	}
+.woocommerce-message {
+	display: none;
+}
 
-	.checkout_coupon.woocommerce-form-coupon {
-		display: block !important;
-	}
+.checkout_coupon.woocommerce-form-coupon {
+	display: block !important;
+}
 
-	.woocommerce-form-coupon-toggle {
-		display: none;
-	}
+.woocommerce-form-coupon-toggle {
+	display: none;
+}
 
-	.optional {
-		display: none;
-	}
+.optional {
+	display: none;
+}
 
-	/* Coupon form enhancements */
-	.coupon-toggle-container {
-		margin-bottom: 15px;
-	}
+/* Coupon form enhancements */
+.coupon-toggle-container {
+	margin-bottom: 15px;
+}
 
-	.toggle-coupon-form {
-		background: transparent;
-		border: 1px solid #ddd;
-		padding: 10px 15px;
-		border-radius: 4px;
-		cursor: pointer;
-		width: 100%;
-		text-align: left;
-		transition: all 0.3s ease;
-	}
+.toggle-coupon-form {
+	background: transparent;
+	border: 1px solid #ddd;
+	padding: 10px 15px;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+	text-align: left;
+	transition: all 0.3s ease;
+}
 
-	.toggle-coupon-form:hover {
-		background-color: #f8f9fa;
-		border-color: #007cba;
-	}
+.toggle-coupon-form:hover {
+	background-color: #f8f9fa;
+	border-color: #007cba;
+}
 
-	.ajax-coupon-form {
-		margin-top: 15px;
-		padding-top: 15px;
-		border-top: 1px solid #eee;
-	}
+.ajax-coupon-form {
+	margin-top: 15px;
+	padding-top: 15px;
+	border-top: 1px solid #eee;
+}
 
-	.ajax-coupon-form .ajax-apply-coupon.loading {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
+.ajax-coupon-form .ajax-apply-coupon.loading {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
 
-	.coupon-messages .woocommerce-message,
-	.coupon-messages .woocommerce-error {
-		margin: 0;
-		padding: 10px 15px;
-		border-radius: 4px;
-		font-size: 14px;
-	}
+.coupon-messages .woocommerce-message,
+.coupon-messages .woocommerce-error {
+	margin: 0;
+	padding: 10px 15px;
+	border-radius: 4px;
+	font-size: 14px;
+}
 
-	.coupon-messages .woocommerce-message {
-		background-color: #d4edda;
-		border-color: #c3e6cb;
-		color: #155724;
-	}
+.coupon-messages .woocommerce-message {
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+	color: #155724;
+}
 
-	.coupon-messages .woocommerce-error {
-		background-color: #f8d7da;
-		border-color: #f5c6cb;
-		color: #721c24;
-	}
+.coupon-messages .woocommerce-error {
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+	color: #721c24;
+}
 
-	.payment_box {
-		display: block !important;
-	}
+.payment_box {
+	display: block !important;
+}
 
-	.wc_payment_methods>li {
-		display: flex !important;
-		gap: 10px !important;
-		margin-bottom: 10px !important;
-	}
+.wc_payment_methods>li {
+	display: flex !important;
+	gap: 10px !important;
+	margin-bottom: 10px !important;
+}
 
-	@media (max-width: 767.98px) {
-		.section-checkout .row {
-			flex-direction: column;
-			gap: 20px;
-		}
+@media (max-width: 767.98px) {
+	.section-checkout .row {
+		flex-direction: column;
+		gap: 20px;
 	}
+}
 </style>
 
 <?php do_action('woocommerce_after_checkout_form', $checkout); ?>

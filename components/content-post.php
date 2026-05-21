@@ -1,16 +1,28 @@
- <div class="news-item rounded-3 overflow-hidden">
-     <div class="img"> <a class="img-ratio ratio:pt-[187_332] zoom-img" href="<?php the_permalink(); ?>">
-             <img class="lozad undefined" data-src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>" alt="<?php the_title(); ?>" /></a></div>
-     <div class="content">
-         <div class="top">
-             <div class="date"><?php echo get_the_date(); ?></div>
-             <div class="category"><a href="<?php echo get_term_link(get_the_terms(get_the_ID(), 'category')[0]->term_id); ?>"><?php echo get_the_terms(get_the_ID(), 'category')[0]->name; ?></a></div>
-         </div>
-         <div class="bottom">
-             <div class="title title-20 font-bold text-Primary-2 mb-2"> <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-             <div class="desc line-clamp-3 text-Utility-gray-800">
-                 <?php the_excerpt(); ?>
-             </div>
-         </div>
-     </div>
- </div>
+<?php
+defined( 'ABSPATH' ) || exit;
+
+$post_terms  = get_the_terms( get_the_ID(), 'category' );
+$post_term_0 = ( ! is_wp_error( $post_terms ) && ! empty( $post_terms ) ) ? reset( $post_terms ) : null;
+?>
+<a class="content-left group" href="<?php the_permalink(); ?>">
+    <div class="img img-ratio ratio:pt-[572_912] zoom-img">
+        <img class="lozad" data-src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ); ?>" alt="<?php the_title_attribute(); ?>" />
+        <div class="main-content">
+            <div class="warp">
+                <div class="category-new">
+                    <span><?php echo esc_html( get_the_date( 'd/m/Y' ) ); ?></span>
+                    <?php if ( $post_term_0 ) : ?>
+                    <span><?php echo esc_html( $post_term_0->name ); ?></span>
+                    <?php endif; ?>
+                </div>
+                <div class="title-new">
+                    <h2 class="title-heading text-white group-hover:text-primary-2 all-linear-500"><?php the_title(); ?></h2>
+                </div>
+                <button class="btn btn-new btn-prmary btn-icon">
+                    <span><?php esc_html_e( 'View Detail', 'canhcamtheme' ); ?></span>
+                    <div class="icon"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</a>

@@ -36,7 +36,7 @@ defined('ABSPATH') || exit;
 		<div class="wrap-box">
 			<div class="box-cart-left">
 				<div class="cart-title">
-					<?= _e('Giỏ hàng của bạn', 'canhcamtheme') ?>
+					<?= _e('Your Cart', 'canhcamtheme') ?>
 				</div>
 				<?php
 				foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
@@ -55,9 +55,9 @@ defined('ABSPATH') || exit;
 					if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) {
 						$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
 				?>
-						<div class="item-cart">
-							<div class="product-image">
-								<?php
+				<div class="item-cart">
+					<div class="product-image">
+						<?php
 								$thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
 
 								if (!$product_permalink) {
@@ -66,8 +66,8 @@ defined('ABSPATH') || exit;
 									printf('<a href="%s">%s</a>', esc_url($product_permalink), $thumbnail); // PHPCS: XSS ok.
 								}
 								?>
-								<div class="delete product-remove">
-									<?php
+						<div class="delete product-remove">
+							<?php
 									echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										'woocommerce_cart_item_remove_link',
 										sprintf(
@@ -81,11 +81,11 @@ defined('ABSPATH') || exit;
 										$cart_item_key
 									);
 									?>
-								</div>
-							</div>
-							<div class="item-cart-content">
-								<div class="item-cart-title" data-title="<?php esc_attr_e('Product', 'woocommerce'); ?>">
-									<?php
+						</div>
+					</div>
+					<div class="item-cart-content">
+						<div class="item-cart-title" data-title="<?php esc_attr_e('Product', 'woocommerce'); ?>">
+							<?php
 									if (!$product_permalink) {
 										echo wp_kses_post($product_name . '&nbsp;');
 									} else {
@@ -97,8 +97,8 @@ defined('ABSPATH') || exit;
 										echo wp_kses_post(apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s</a>', esc_url($product_permalink), $_product->get_name()), $cart_item, $cart_item_key));
 									}
 									?>
-								</div>
-								<?php
+						</div>
+						<?php
 								do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
 								echo wc_get_formatted_cart_item_data($cart_item); // PHPCS: XSS ok.
 								// Backorder notification.
@@ -106,20 +106,22 @@ defined('ABSPATH') || exit;
 									echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
 								}
 								?>
-								<div class="wrap-item-price-quantity ">
-									<div class="item-cart-price flex" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
-										<?php
+						<div class="wrap-item-price-quantity ">
+							<div class="item-cart-price flex" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
+								<?php
 										echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
 										?>
-									</div>
-									<div class="item-cart-quantity flex flex-col gap-1" data-title="<?php esc_attr_e('Quantity', 'woocommerce'); ?>">
-										<div class="product-subtotal text-right font-bold" data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>">
-											<?php
+							</div>
+							<div class="item-cart-quantity flex flex-col gap-1"
+								data-title="<?php esc_attr_e('Quantity', 'woocommerce'); ?>">
+								<div class="product-subtotal text-right font-bold"
+									data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>">
+									<?php
 											echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); // PHPCS: XSS ok.
 											?>
-										</div>
-										<div class="product-quantity">
-											<?php
+								</div>
+								<div class="product-quantity">
+									<?php
 											if ($_product->is_sold_individually()) {
 												$min_quantity = 1;
 												$max_quantity = 1;
@@ -142,12 +144,12 @@ defined('ABSPATH') || exit;
 
 											echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item); // PHPCS: XSS ok.
 											?>
-										</div>
-									</div>
 								</div>
-
 							</div>
 						</div>
+
+					</div>
+				</div>
 				<?php
 					}
 				}
@@ -171,7 +173,10 @@ defined('ABSPATH') || exit;
 					?>
 				</div>
 				<div class="hidden">
-					<button type="submit" class="button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>"><?php esc_html_e('Update cart', 'woocommerce'); ?></button>
+					<button type="submit"
+						class="button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
+						name="update_cart"
+						value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>"><?php esc_html_e('Update cart', 'woocommerce'); ?></button>
 				</div>
 
 				<?php do_action('woocommerce_cart_actions'); ?>

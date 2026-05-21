@@ -402,7 +402,7 @@
 				$('.cart-overlay').on('click', function () {
 					funcRemove();
 				});
-				$(".header-cart:not(.disabled)").on("click", function () {
+				$(".open-cart:not(.disabled)").on("click", function () {
 					$("body").toggleClass("show-cart");
 					$(".cart-overlay").toggleClass("active");
 				});

@@ -17,7 +17,7 @@ add_action('woocommerce_template_loop_add_to_cart', function () {
 		echo '<a href="' . get_the_permalink($product->get_id()) . '" class="btn btn-add-to-cart btn-solid"><span>' . __('Xem chi tiết', 'canhcamtheme') . '</span><i class="fa-regular fa-eye"></i></a>';
 	} else {
 		echo sprintf(
-			'<a href="%s" class="btn btn-add-to-cart quick-add-to-cart btn-solid" data-product-id="%s" data-quantity="1" data-added="' . __('Đã thêm vào giỏ hàng', 'canhcamtheme') . '"><span>' . __('Mua ngay', 'canhcamtheme') . '</span><i class="fa-regular fa-arrow-right"></i></a>',
+			'<a href="%s" class="btn btn-add-to-cart quick-add-to-cart btn-solid" data-product-id="%s" data-quantity="1" data-added="' . __('Goods have been added', 'canhcamtheme') . '"><span>' . __('Buy now', 'canhcamtheme') . '</span><i class="fa-regular fa-arrow-right"></i></a>',
 			esc_url($product->get_permalink()),
 			$product->get_id()
 		);

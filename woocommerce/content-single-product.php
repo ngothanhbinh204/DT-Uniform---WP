@@ -80,31 +80,37 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 
 ?>
 <section id="product-<?php the_ID(); ?>" <?php wc_product_class('product-detail-1 section-py', $product); ?>>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="product-detail-main flex flex-col lg:flex-row xl:gap-16 gap-base">
 			<div class="col-left xl:rem:max-w-[805px] lg:w-2/4 w-full">
-				<div class="wrapper grid md:grid-cols-[calc(118/805*100%)_1fr] grid-cols-[calc(120/805*100%)_1fr] gap-[calc(20/805*100%)]">
+				<div
+					class="wrapper grid md:grid-cols-[calc(118/805*100%)_1fr] grid-cols-[calc(120/805*100%)_1fr] gap-[calc(20/805*100%)]">
 					<div class="thumb relative">
 						<div class="relative size-full">
 							<div class="swiper">
 								<div class="swiper-wrapper">
 									<?php if (!empty($all_image_ids)) : ?>
-										<?php foreach ($all_image_ids as $key => $image_id) :
+									<?php foreach ($all_image_ids as $key => $image_id) :
 											$image_url = wp_get_attachment_image_src($image_id, 'full')[0];
 										?>
-											<div class="swiper-slide">
-												<div class="img"><a class="img-ratio">
-														<img class="lozad undefined" data-src="<?php echo $image_url; ?>" alt="" /></a>
-												</div>
-											</div>
-										<?php endforeach; ?>
+									<div class="swiper-slide">
+										<div class="img"><a class="img-ratio">
+												<img class="lozad undefined" data-src="<?php echo $image_url; ?>"
+													alt="" /></a>
+										</div>
+									</div>
+									<?php endforeach; ?>
 									<?php endif; ?>
 								</div>
 							</div>
 						</div>
-						<div class="wrap-button-slide arrow-vertical">
-							<div class="button-prev"></div>
-							<div class="button-next"></div>
+						<div class="button-swiper arrow-vertical">
+							<div class="btn-swiper btn-prev btn-swiper-primary">
+								<div class="icon"></div>
+							</div>
+							<div class="btn-swiper btn-next btn-swiper-primary">
+								<div class="icon"></div>
+							</div>
 						</div>
 					</div>
 					<div class="main">
@@ -114,9 +120,14 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 									$image_url = wp_get_attachment_image_src($image_id, 'full')[0];
 									$link_video = get_field('link_video', $image_id);
 								?>
-									<div class="swiper-slide">
-										<div class="img"><a class="img-ratio rounded-4 <?php echo !empty($link_video) ? 'is-icon-play' : '' ?>" <?php if ($link_video) : ?> data-fancybox data-src="<?= esc_url($link_video) ?>" <?php endif; ?>><img class="lozad undefined" data-src="<?php echo $image_url; ?>" alt="" /></a></div>
-									</div>
+								<div class="swiper-slide">
+									<div class="img"><a
+											class="img-ratio rounded-4 <?php echo !empty($link_video) ? 'is-icon-play' : '' ?>"
+											<?php if ($link_video) : ?> data-fancybox
+											data-src="<?= esc_url($link_video) ?>" <?php endif; ?>><img
+												class="lozad undefined" data-src="<?php echo $image_url; ?>"
+												alt="" /></a></div>
+								</div>
 								<?php endforeach; ?>
 							</div>
 						</div>
@@ -125,27 +136,33 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 			</div>
 
 			<div class="col-right flex-1" style="max-width: 45%;">
-				<h2 class="text-Primary-5 rem:text-[32px] font-bold mb-3 title-product"> <?php echo $product_name; ?></h2>
+				<h2 class="text-Primary-5 rem:text-[32px] font-bold mb-3 title-product"> <?php echo $product_name; ?>
+				</h2>
 				<div class="code-product">
-					<p><?php _e('Mã sản phẩm:', 'canhcamtheme'); ?> <br><span class="sku-product"><?php echo $product_sku; ?></span></p>
+					<p><?php _e('Mã sản phẩm:', 'canhcamtheme'); ?> <br><span
+							class="sku-product"><?php echo $product_sku; ?></span></p>
 				</div>
 				<div class="format-content mt-4">
 					<?php echo wpautop($product->get_short_description()); ?>
 					<?php if (!empty($product_info_table)) : ?>
-						<div class="info-product">
-							<table>
-								<tr>
-									<td><?php _e('Tình trạng:', 'canhcamtheme'); ?></td>
-									<td class="parameter stock-status" data-in-stock-text="<?php echo __('Còn hàng', 'canhcamtheme'); ?>" data-out-of-stock-text="<?php echo __('Hết hàng', 'canhcamtheme'); ?>"><?php echo $is_in_stock ? __('Còn hàng', 'canhcamtheme') : __('Hết hàng', 'canhcamtheme'); ?></td>
-								</tr>
-								<?php foreach ($product_info_table as $item) : ?>
-									<tr>
-										<td><?php echo !empty($item['label']) ? $item['label'] : ''; ?></td>
-										<td class="parameter"><?php echo !empty($item['value']) ? $item['value'] : ''; ?></td>
-									</tr>
-								<?php endforeach; ?>
-							</table>
-						</div>
+					<div class="info-product">
+						<table>
+							<tr>
+								<td><?php _e('Tình trạng:', 'canhcamtheme'); ?></td>
+								<td class="parameter stock-status"
+									data-in-stock-text="<?php echo __('Còn hàng', 'canhcamtheme'); ?>"
+									data-out-of-stock-text="<?php echo __('Hết hàng', 'canhcamtheme'); ?>">
+									<?php echo $is_in_stock ? __('Còn hàng', 'canhcamtheme') : __('Hết hàng', 'canhcamtheme'); ?>
+								</td>
+							</tr>
+							<?php foreach ($product_info_table as $item) : ?>
+							<tr>
+								<td><?php echo !empty($item['label']) ? $item['label'] : ''; ?></td>
+								<td class="parameter"><?php echo !empty($item['value']) ? $item['value'] : ''; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</table>
+					</div>
 					<?php endif; ?>
 				</div>
 				<?php
@@ -172,23 +189,26 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 						]);
 
 				?>
-						<div class="filters" data-attribute="<?php echo esc_attr($attribute_name); ?>">
-							<div class="label"><?php echo __('Theo', 'canhcamtheme'); ?> <span><?php echo wc_attribute_label($attribute_name); ?></span>:</div>
-							<div class="value">
-								<ul class="attribute-options <?php echo esc_attr($attribute_name); ?>">
-									<?php
+				<div class="filters" data-attribute="<?php echo esc_attr($attribute_name); ?>">
+					<div class="label"><?php echo __('By', 'canhcamtheme'); ?>
+						<span><?php echo wc_attribute_label($attribute_name); ?></span>:
+					</div>
+					<div class="value">
+						<ul class="attribute-options <?php echo esc_attr($attribute_name); ?>">
+							<?php
 									// Duyệt đúng theo thứ tự term
 									foreach ($terms as $term) {
 										if (!in_array($term->slug, $options)) continue; // bỏ qua nếu term không nằm trong variation
 										$active_class = (isset($default_attributes[$attribute_name]) && $default_attributes[$attribute_name] === $term->slug) ? 'active' : '';
 									?>
-										<li class="<?php echo esc_attr($active_class); ?>" data-value="<?php echo esc_attr($term->slug); ?>">
-											<span><?php echo esc_html($term->name); ?></span>
-										</li>
-									<?php } ?>
-								</ul>
-							</div>
-						</div>
+							<li class="<?php echo esc_attr($active_class); ?>"
+								data-value="<?php echo esc_attr($term->slug); ?>">
+								<span><?php echo esc_html($term->name); ?></span>
+							</li>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>
 				<?php
 					}
 				}
@@ -198,44 +218,50 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 				<?php do_action('woocommerce_single_product_summary'); ?>
 
 				<?php echo $product->get_price_html(); ?>
-				<div class="wrap-bottom">
-					<div class="button-contact flex items-center gap-6 whitespace-nowrap">
-						<a class="btn btn-contact" href="#form-contact-product" data-fancybox> <span><?php _e('Liên hệ để nhận tư vấn', 'canhcamtheme'); ?></span>
-							<div class="icon">
-								<i class="fa-regular fa-pen-to-square"></i>
-							</div>
+				<div class="button-contact flex items-center gap-6 whitespace-nowrap">
+
+					<a class="btn btn-contact" href="#form-contact-product" data-fancybox>
+						<span><?php _e('Liên hệ để nhận tư vấn', 'canhcamtheme'); ?></span>
+						<div class="icon">
+							<i class="fa-regular fa-pen-to-square"></i>
+						</div>
+					</a>
+					<?php if (!empty($single_product_shop_link)) : ?>
+					<a class="btn btn-location"
+						href="<?php echo !empty($single_product_shop_link['url']) ? $single_product_shop_link['url'] : ''; ?>"
+						target="_blank">
+						<span><?php echo !empty($single_product_shop_link['title']) ? $single_product_shop_link['title'] : ''; ?></span>
+						<div class="icon">
+							<i class="fa-regular fa-store"></i>
+						</div>
+					</a>
+					<?php endif; ?>
+				</div>
+				<div class="commercial flex gap-4">
+					<div class="label"><?php _e('Sàn thương mại:', 'canhcamtheme'); ?></div>
+					<div class="commercial-img flex gap-2 flex-wrap">
+						<?php foreach ($product_commerce_platforms_single_product as $item) : ?>
+						<a <?php echo !empty($item['url']) ? 'href="' . $item['url'] . '"' : ''; ?> target="_blank">
+							<?php if (!empty($item['logo']['url'])) : ?>
+							<img src="<?php echo !empty($item['logo']['url']) ? $item['logo']['url'] : ''; ?>"
+								alt="<?php echo !empty($item['logo']['alt']) ? $item['logo']['alt'] : ''; ?>">
+
+							<?php endif; ?>
 						</a>
-						<?php if (!empty($single_product_shop_link)) : ?>
-							<a class="btn btn-location" href="<?php echo !empty($single_product_shop_link['url']) ? $single_product_shop_link['url'] : ''; ?>" target="_blank"> <span><?php echo !empty($single_product_shop_link['title']) ? $single_product_shop_link['title'] : ''; ?></span>
-								<div class="icon">
-									<i class="fa-regular fa-store"></i>
-								</div>
-							</a>
-						<?php endif; ?>
+						<?php endforeach; ?>
 					</div>
-					<div class="commercial flex gap-4">
-						<div class="label"><?php _e('Sàn thương mại:', 'canhcamtheme'); ?></div>
-						<div class="commercial-img flex gap-2 flex-wrap">
-							<?php foreach ($product_commerce_platforms_single_product as $item) : ?>
-								<a <?php echo !empty($item['url']) ? 'href="' . $item['url'] . '"' : ''; ?> target="_blank">
-									<?php if (!empty($item['logo']['url'])) : ?>
-										<img src="<?php echo !empty($item['logo']['url']) ? $item['logo']['url'] : ''; ?>" alt="<?php echo !empty($item['logo']['alt']) ? $item['logo']['alt'] : ''; ?>">
+				</div>
+				<div class="share flex items-center gap-3">
+					<div class="label">Share:</div>
+					<div class="social"> <a
+							href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">
+							<i class="fa-brands fa-facebook-f"></i></a>
 
-									<?php endif; ?>
-								</a>
-							<?php endforeach; ?>
-						</div>
-					</div>
-					<div class="share flex items-center gap-3">
-						<div class="label">Share:</div>
-						<div class="social"> <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">
-								<i class="fa-brands fa-facebook-f"></i></a>
-
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 <section class="product-detail-2">
@@ -245,9 +271,11 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 				<ul class="tabslet-tab">
 					<li class="active"><a href="#tab1"><?php _e('Thông tin sản phẩm', 'canhcamtheme'); ?></a></li>
 					<?php if (!empty($product_detail_tabs)) : ?>
-						<?php foreach ($product_detail_tabs as $key => $item) : ?>
-							<li><a href="#tab<?php echo $key + 2; ?>"><?php echo !empty($item['tab_title']) ? $item['tab_title'] : ''; ?></a></li>
-						<?php endforeach; ?>
+					<?php foreach ($product_detail_tabs as $key => $item) : ?>
+					<li><a
+							href="#tab<?php echo $key + 2; ?>"><?php echo !empty($item['tab_title']) ? $item['tab_title'] : ''; ?></a>
+					</li>
+					<?php endforeach; ?>
 					<?php endif; ?>
 				</ul>
 			</div>
@@ -255,7 +283,8 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 		<div class="wrap-content">
 			<div class="container">
 				<div class="tabslet-content active" id="tab1">
-					<h2 class="rem:text-[32px] font-bold text-Primary-5 mb-base text-center"><?php _e('Thông tin sản phẩm', 'canhcamtheme'); ?></h2>
+					<h2 class="rem:text-[32px] font-bold text-Primary-5 mb-base text-center">
+						<?php _e('Thông tin sản phẩm', 'canhcamtheme'); ?></h2>
 					<div class="expand-content overflow-hidden">
 						<div class="format-content">
 							<?php echo wpautop($product->get_description()); ?>
@@ -270,23 +299,24 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 					</div>
 				</div>
 				<?php if (!empty($product_detail_tabs)) : ?>
-					<?php foreach ($product_detail_tabs as $key => $item) : ?>
-						<div class="tabslet-content" id="tab<?php echo $key + 2; ?>">
-							<h2 class="rem:text-[32px] font-bold text-Primary-5 mb-base text-center"><?php echo !empty($item['content_title']) ? $item['content_title'] : ''; ?></h2>
-							<div class="expand-content overflow-hidden">
-								<div class="format-content">
-									<?php echo !empty($item['content']) ? $item['content'] : ''; ?>
-								</div>
-							</div>
-							<div class="btn-view-more">
-								<button> <span><?php _e('Xem thêm', 'canhcamtheme'); ?></span>
-									<div class="icon">
-										<i class="fa-regular fa-angle-down"></i>
-									</div>
-								</button>
-							</div>
+				<?php foreach ($product_detail_tabs as $key => $item) : ?>
+				<div class="tabslet-content" id="tab<?php echo $key + 2; ?>">
+					<h2 class="rem:text-[32px] font-bold text-Primary-5 mb-base text-center">
+						<?php echo !empty($item['content_title']) ? $item['content_title'] : ''; ?></h2>
+					<div class="expand-content overflow-hidden">
+						<div class="format-content">
+							<?php echo !empty($item['content']) ? $item['content'] : ''; ?>
 						</div>
-					<?php endforeach; ?>
+					</div>
+					<div class="btn-view-more">
+						<button> <span><?php _e('Xem thêm', 'canhcamtheme'); ?></span>
+							<div class="icon">
+								<i class="fa-regular fa-angle-down"></i>
+							</div>
+						</button>
+					</div>
+				</div>
+				<?php endforeach; ?>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -302,31 +332,35 @@ $product_contact_shortcode_single_product = get_field('product_contact_shortcode
 	$product_suggested = new WP_Query($arg_product_suggested);
 	if ($product_suggested->have_posts()) :
 ?>
-		<section class="product-detail-3 section-py">
-			<div class="container">
-				<h2 class="heading-4 text-center text-Primary-5 mb-base"><?php _e('Sản phẩm gợi ý', 'canhcamtheme'); ?></h2>
-				<div class="swiper-column-auto relative autoplay swiper-loop">
-					<div class="swiper">
-						<div class="swiper-wrapper">
-							<?php while ($product_suggested->have_posts()) : $product_suggested->the_post(); ?>
-								<?php
+<section class="product-detail-3 section-py">
+	<div class="container">
+		<h2 class="heading-4 text-center text-Primary-5 mb-base"><?php _e('Sản phẩm gợi ý', 'canhcamtheme'); ?></h2>
+		<div class="swiper-column-auto relative autoplay swiper-loop">
+			<div class="swiper">
+				<div class="swiper-wrapper">
+					<?php while ($product_suggested->have_posts()) : $product_suggested->the_post(); ?>
+					<?php
 								$product = wc_get_product(get_the_ID());
 								?>
-								<div class="swiper-slide">
-									<?php wc_get_template_part('content', 'product'); ?>
-								</div>
-							<?php endwhile; ?>
-							<?php wp_reset_postdata(); ?>
-						</div>
+					<div class="swiper-slide">
+						<?php wc_get_template_part('content', 'product'); ?>
 					</div>
-					<div class="wrap-button-slide">
-						<div class="btn btn-sw-1 btn-prev"></div>
-						<div class="btn btn-sw-1 btn-next"></div>
-					</div>
+					<?php endwhile; ?>
+					<?php wp_reset_postdata(); ?>
 				</div>
 			</div>
-		</section>
-	<?php endif; ?>
+			<div class="button-swiper-products">
+				<div class="btn-swiper btn-prev btn-swiper-primary">
+					<div class="icon"></div>
+				</div>
+				<div class="btn-swiper btn-next btn-swiper-primary">
+					<div class="icon"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
 <?php endif; ?>
 <?php
 $category_id = get_the_terms($product_id, 'product_cat');
@@ -346,28 +380,32 @@ $arg_product_related = array(
 $product_related = new WP_Query($arg_product_related);
 if ($product_related->have_posts()) :
 ?>
-	<section class="product-detail-4 section-py bg-Utility-gray-50">
-		<div class="container">
-			<h2 class="heading-4 text-center text-Primary-5 mb-base"><?php _e('Sản phẩm liên quan', 'canhcamtheme'); ?></h2>
-			<div class="swiper-column-auto relative autoplay swiper-loop">
-				<div class="swiper">
-					<div class="swiper-wrapper">
-						<?php while ($product_related->have_posts()) : $product_related->the_post(); ?>
-							<div class="swiper-slide">
-								<?php wc_get_template_part('content', 'product'); ?>
-							</div>
-						<?php endwhile; ?>
-						<?php wp_reset_postdata(); ?>
-
+<section class="product-detail-4 section-py bg-Utility-gray-50">
+	<div class="container">
+		<h2 class="heading-4 text-center text-Primary-5 mb-base"><?php _e('Sản phẩm liên quan', 'canhcamtheme'); ?></h2>
+		<div class="swiper-column-auto relative autoplay swiper-loop">
+			<div class="swiper">
+				<div class="swiper-wrapper">
+					<?php while ($product_related->have_posts()) : $product_related->the_post(); ?>
+					<div class="swiper-slide">
+						<?php wc_get_template_part('content', 'product'); ?>
 					</div>
+					<?php endwhile; ?>
+					<?php wp_reset_postdata(); ?>
+
 				</div>
-				<div class="wrap-button-slide">
-					<div class="btn btn-sw-1 btn-prev"></div>
-					<div class="btn btn-sw-1 btn-next"></div>
+			</div>
+			<div class="button-swiper-products">
+				<div class="btn-swiper btn-prev btn-swiper-primary">
+					<div class="icon"></div>
+				</div>
+				<div class="btn-swiper btn-next btn-swiper-primary">
+					<div class="icon"></div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 <?php endif; ?>
 <div id="form-contact-product" style="display: none;" data-fancybox-modal>
 	<div class="popup-content w-full relative z-50">
@@ -378,7 +416,7 @@ if ($product_related->have_posts()) :
 			</div>
 		</div>
 		<?php if (!empty($product_contact_shortcode_single_product)) : ?>
-			<?php echo do_shortcode($product_contact_shortcode_single_product); ?>
+		<?php echo do_shortcode($product_contact_shortcode_single_product); ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -394,15 +432,15 @@ if ($product_related->have_posts()) :
 ?>
 <?php do_action('woocommerce_after_single_product'); ?>
 <style>
-	.woocommerce-variation-description {
-		display: none !important;
-	}
+.woocommerce-variation-description {
+	display: none !important;
+}
 
-	.added_to_cart {
-		display: none;
-	}
+.added_to_cart {
+	display: none;
+}
 
-	.section-product-detail .product-col-right .variations_form label {
-		text-align: left;
-	}
+.section-product-detail .product-col-right .variations_form label {
+	text-align: left;
+}
 </style>
