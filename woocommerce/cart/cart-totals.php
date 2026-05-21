@@ -25,46 +25,46 @@ defined('ABSPATH') || exit;
 
 	<div class="flex gap-5 justify-between items-center py-3 total-cart">
 		<div class="text">
-			<?php esc_html_e('Tạm tính', 'woocommerce'); ?>
+			<?php esc_html_e('Temporality', 'woocommerce'); ?>
 		</div>
 		<div class="value">
 			<?php wc_cart_totals_subtotal_html(); ?>
 		</div>
 	</div>
 	<?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
-		<div class="flex gap-5 justify-between items-center py-3 shipping total-cart">
-			<div class="text">
-				<?php do_action('woocommerce_cart_totals_before_shipping'); ?>
+	<div class="flex gap-5 justify-between items-center py-3 shipping total-cart">
+		<div class="text">
+			<?php do_action('woocommerce_cart_totals_before_shipping'); ?>
 
-				<?php wc_cart_totals_shipping_html(); ?>
+			<?php wc_cart_totals_shipping_html(); ?>
 
-				<?php do_action('woocommerce_cart_totals_after_shipping'); ?>
-			</div>
+			<?php do_action('woocommerce_cart_totals_after_shipping'); ?>
 		</div>
+	</div>
 	<?php elseif (WC()->cart->needs_shipping() && 'yes' === get_option('woocommerce_enable_shipping_calc')) : ?>
-		<div class="flex gap-5 justify-between items-center py-3 shipping">
-			<div class="text">
-				<?php esc_html_e('Shipping', 'woocommerce'); ?>
-			</div>
-			<div class="value" data-title="<?php esc_attr_e('Shipping', 'woocommerce'); ?>">
-				<?php woocommerce_shipping_calculator(); ?>
-			</div>
+	<div class="flex gap-5 justify-between items-center py-3 shipping">
+		<div class="text">
+			<?php esc_html_e('Shipping', 'woocommerce'); ?>
 		</div>
+		<div class="value" data-title="<?php esc_attr_e('Shipping', 'woocommerce'); ?>">
+			<?php woocommerce_shipping_calculator(); ?>
+		</div>
+	</div>
 	<?php endif; ?>
 	<?php foreach (WC()->cart->get_fees() as $fee) : ?>
-		<div class="flex gap-5 justify-between items-center py-3 total-cart">
-			<div class="text">
-				<?php echo esc_html($fee->name); ?>
-			</div>
-			<div class="value">
-				<?php wc_cart_totals_fee_html($fee); ?>
-			</div>
+	<div class="flex gap-5 justify-between items-center py-3 total-cart">
+		<div class="text">
+			<?php echo esc_html($fee->name); ?>
 		</div>
+		<div class="value">
+			<?php wc_cart_totals_fee_html($fee); ?>
+		</div>
+	</div>
 	<?php endforeach; ?>
 	<?php do_action('woocommerce_cart_totals_before_order_total'); ?>
 	<div class="flex gap-5 justify-between items-center py-3 total-cart">
 		<div class="text">
-			<?php esc_html_e('Tổng tiền', 'woocommerce'); ?>
+			<?php esc_html_e('Total amount', 'woocommerce'); ?>
 		</div>
 		<div class="value">
 			<?php wc_cart_totals_order_total_html(); ?>

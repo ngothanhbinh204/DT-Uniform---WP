@@ -159,7 +159,7 @@ defined('ABSPATH') || exit;
 				<?php do_action('woocommerce_cart_contents'); ?>
 				<div class="cart-collaterals">
 					<div class="cart-title">
-						<?= _e('Thông tin đơn hàng', 'canhcamtheme') ?>
+						<?= _e('Single row of information', 'canhcamtheme') ?>
 					</div>
 					<?php do_action('woocommerce_before_cart_collaterals'); ?>
 					<?php

@@ -117,15 +117,35 @@ if (!empty($config_head)) {
 						<div class="header-cart">
 
 							<!-- Profile / My Account -->
+
+
+							<?php if ( is_user_logged_in() ) : ?>
+
 							<a class="profile-icon"
-								href="<?php echo $is_user_logged_in ? esc_url($myaccount_url) : esc_url($login_page_url); ?>"
-								aria-label="<?php esc_attr_e('Tài khoản', 'canhcamtheme'); ?>">
+								href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>">
 								<div class="img img-ratio ratio:pt-[1_1]">
-									<!-- <i class="fa-light fa-user"></i> -->
 									<img class="lozad" src="<?php echo get_template_directory_uri(); ?>/img/avatar.svg"
 										alt="<?php esc_attr_e('Tài khoản', 'canhcamtheme'); ?>" />
 								</div>
 							</a>
+							<?php else : ?>
+							<?php
+									$register_pages = get_pages(
+										array(
+											'meta_key'   => '_wp_page_template',
+											'meta_value' => 'template-woocommerce/page-login.php',
+											'number'     => 1,
+										)
+									);
+									$register_url = get_permalink( $register_pages[0]->ID );
+									?>
+							<a class="profile-icon" href="<?php echo esc_url( $register_url ); ?>">
+								<div class="img img-ratio ratio:pt-[1_1]">
+									<img class="lozad" src="<?php echo get_template_directory_uri(); ?>/img/avatar.svg"
+										alt="<?php esc_attr_e('Tài khoản', 'canhcamtheme'); ?>" />
+								</div>
+							</a>
+							<?php endif; ?>
 
 							<!-- Cart -->
 							<a class="cart-icon open-cart" aria-label="<?php esc_attr_e('Cart', 'canhcamtheme'); ?>">

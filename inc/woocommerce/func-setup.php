@@ -551,7 +551,7 @@ add_action('woocommerce_widget_shopping_cart_total', 'bbloomer_minicart_custom_t
 function bbloomer_minicart_custom_text()
 {
 	if (! WC()->cart) return;
-	echo '<strong class="mini_cart_text">' . __('Tạm tính', 'woocommerce') . ': </strong>';
+	echo '<strong class="mini_cart_text">' . __('Temporality', 'woocommerce') . ': </strong>';
 }
 add_filter('woocommerce_my_account_my_orders_query', 'custom_my_account_orders', 10, 1);
 function custom_my_account_orders($args)

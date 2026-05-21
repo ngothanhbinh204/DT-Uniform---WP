@@ -600,18 +600,27 @@ function get_post_categories($post_id)
 }
 
 
-function get_page_link_by_template($template_name)
-{
-	$pages = get_pages(array(
-		'meta_key' => '_wp_page_template',
-		'meta_value' => $template_name
-	));
-
-	if (!empty($pages)) {
-		return get_permalink($pages[0]->ID);
-	}
-
-	return false;
+function get_page_link_by_template($template_name) {
+    $template_name = trim($template_name);
+    
+    $query = new WP_Query(array(
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => 1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => $template_name,
+        'no_found_rows'  => true, 
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false
+    ));
+    
+    if ($query->have_posts()) {
+        $url = get_permalink($query->posts[0]->ID);
+        wp_reset_postdata();
+        return $url;
+    }
+    
+    return false;
 }
 
 add_action('wp_logout', 'auto_redirect_after_logout');

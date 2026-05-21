@@ -41,7 +41,7 @@ $order_button_text = apply_filters('woocommerce_order_button_text', __('Place or
 				<div class="col lg:w-8/12">
 					<div class="wrap-form-checkout section-wrap-box-white p-7.5">
 						<div class="title-line">
-							<?php _e('Thông tin giao hàng', 'canhcamtheme') ?>
+							<?php _e('Delivery information', 'canhcamtheme') ?>
 						</div>
 						<?php do_action('woocommerce_checkout_billing'); ?>
 						<?php do_action('custom_woocommerce_payment') ?>
@@ -65,7 +65,7 @@ $order_button_text = apply_filters('woocommerce_order_button_text', __('Place or
 				<div class="col lg:w-4/12">
 					<div class="section-wrap-box-white p-7.5 mb-5">
 						<div class="title-line mb-0">
-							<?php _e('Đơn hàng của bạn', 'canhcamtheme') ?>
+							<?php _e('Your Order', 'canhcamtheme') ?>
 						</div>
 						<div id="order_review" class="woocommerce-checkout-review-order">
 							<?php do_action('woocommerce_checkout_order_review'); ?>
